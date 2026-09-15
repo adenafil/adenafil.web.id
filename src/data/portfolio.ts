@@ -6,8 +6,6 @@ export const profile = {
 	email: 'adenafilfirmansah@gmail.com',
 	intro:
 		'Full-stack developer building reliable web applications, backend services, and practical tools for real operational problems.',
-	about:
-		'Informatics graduate experienced in building end-to-end applications for university scheduling, enterprise asset management, and UMKM e-commerce. I work across frontend, backend, databases, background processing, automated testing, and containerized deployment.',
 	links: [
 		{ label: 'Email', href: 'mailto:adenafilfirmansah@gmail.com' },
 		{ label: 'GitHub', href: 'https://github.com/adenafil' },
@@ -53,24 +51,4 @@ export const experiences = [
 		],
 		technologies: ['Laravel', 'React', 'TypeScript', 'Inertia.js', 'MySQL', 'Google OAuth', 'Tripay QRIS'],
 	},
-];
-
-export const skillGroups = [
-	{ name: 'Languages', items: ['TypeScript', 'JavaScript', 'PHP'] },
-	{ name: 'Frontend', items: ['React', 'TanStack Start', 'Next.js', 'Inertia.js'] },
-	{ name: 'Backend', items: ['Laravel', 'NestJS', 'Node.js', 'Bun', 'Express.js'] },
-	{ name: 'Data & Infrastructure', items: ['MySQL', 'PostgreSQL', 'SQLite', 'Redis', 'Prisma', 'BullMQ'] },
-	{ name: 'Tools', items: ['Git', 'GitHub Actions', 'Docker', 'Linux', 'Nginx', 'Vite', 'Turborepo'] },
-];
-
-export const education = {
-	institution: 'Universitas Internasional Semen Indonesia',
-	degree: "Bachelor's Degree in Informatics",
-	period: '2022–2026',
-	gpa: 'GPA 3.72/4.00',
-};
-
-export const certifications = [
-	{ name: 'JavaScript Programming: Beginner to Advanced', issuer: 'Programmer Zaman Now, Udemy', date: 'Nov 2023' },
-	{ name: 'PHP Programming: Beginner to Advanced', issuer: 'Programmer Zaman Now, Udemy', date: 'Mar 2024' },
 ];
