@@ -1,0 +1,18 @@
+---
+import { profile } from '../data/portfolio';
+---
+
+<footer class="site-footer shell">
+	<div>
+		<p class="footer-title">Have a project or opportunity in mind?</p>
+		<a class="footer-email" href={`mailto:${profile.email}`}>{profile.email}</a>
+	</div>
+	<div class="footer-meta">
+		<div class="footer-links">
+			<a href="https://github.com/adenafil" target="_blank">GitHub</a>
+			<a href="https://linkedin.com/in/adenafilf" target="_blank">LinkedIn</a>
+			<a href="/firmansah.pdf" target="_blank">CV</a>
+		</div>
+		<p>© {new Date().getFullYear()} {profile.name}. Built with Astro.</p>
+	</div>
+</footer>

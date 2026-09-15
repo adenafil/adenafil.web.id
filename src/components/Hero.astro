@@ -1,0 +1,29 @@
+---
+import { profile } from '../data/portfolio';
+---
+
+<section class="hero shell" aria-labelledby="hero-title">
+	<div class="portrait-wrap">
+		<img
+			class="portrait"
+			src="/profile.jpg"
+			alt={`Portrait of ${profile.name}`}
+			width="176"
+			height="176"
+			fetchpriority="high"
+		/>
+		<span class="availability"><i aria-hidden="true"></i> Based in {profile.location}</span>
+	</div>
+	<div class="hero-copy">
+		<p class="kicker">{profile.role}</p>
+		<h1 id="hero-title">Hi, I'm {profile.name}.</h1>
+		<p class="hero-intro">{profile.intro}</p>
+		<div class="social-links" aria-label="Profile links">
+			{profile.links.map((link) => (
+				<a href={link.href} target={link.href.startsWith('http') || link.label === 'CV' ? '_blank' : undefined}>
+					{link.label}<span aria-hidden="true"> ↗</span>
+				</a>
+			))}
+		</div>
+	</div>
+</section>

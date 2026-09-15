@@ -1,0 +1,45 @@
+---
+import { certifications, education, profile, skillGroups } from '../data/portfolio';
+---
+
+<section class="section shell" id="about" aria-labelledby="about-title">
+	<div class="section-heading">
+		<p class="section-index">03</p>
+		<div>
+			<h2 id="about-title">About & capabilities</h2>
+			<p>{profile.about}</p>
+		</div>
+	</div>
+
+	<div class="about-grid">
+		<div class="skills-panel">
+			<h3>Technical toolkit</h3>
+			<dl class="skill-list">
+				{skillGroups.map((group) => (
+					<div>
+						<dt>{group.name}</dt>
+						<dd>{group.items.join(' · ')}</dd>
+					</div>
+				))}
+			</dl>
+		</div>
+		<div class="credentials">
+			<div>
+				<h3>Education</h3>
+				<p class="credential-title">{education.institution}</p>
+				<p>{education.degree}</p>
+				<p class="credential-meta">{education.period} · {education.gpa}</p>
+			</div>
+			<div>
+				<h3>Certifications</h3>
+				{certifications.map((certification) => (
+					<div class="certificate">
+						<p class="credential-title">{certification.name}</p>
+						<p>{certification.issuer}</p>
+						<p class="credential-meta">{certification.date}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</section>

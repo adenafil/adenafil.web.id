@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
 import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title = 'Ade Nafil Firmansah · Full-Stack Developer';
+const description =
+	'Full-stack developer experienced in TypeScript, React, Laravel, NestJS, databases, background processing, testing, and deployment.';
 ---
 
-<Layout>
-	<Welcome />
+<Layout {title} {description}>
+	<div id="top"></div>
+	<Header />
+	<main id="main-content">
+		<Hero />
+		<Projects />
+		<Experience />
+		<About />
+	</main>
+	<Footer />
 </Layout>
