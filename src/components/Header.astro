@@ -1,27 +1,17 @@
 ---
 import { profile } from '../data/portfolio';
+import ThemeToggle from './ThemeToggle';
 ---
 
-<header class="site-header">
-	<div class="shell header-inner">
-		<a class="wordmark" href="#top" aria-label={`${profile.name}, back to top`}>{profile.shortName}</a>
-		<nav aria-label="Main navigation">
-			<a href="#work">Work</a>
-			<a href="#experience">Experience</a>
-			<a href="#about">About</a>
-			<a class="nav-cv" href="/firmansah.pdf" target="_blank">CV</a>
-			<button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
-				<span aria-hidden="true"></span>
-			</button>
+<header class="sticky top-0 z-10 bg-[var(--header)] backdrop-blur-[14px]">
+	<div class="mx-auto flex h-16 w-[calc(100%-2rem)] max-w-6xl items-center justify-between md:h-[72px] md:w-[calc(100%-3rem)]">
+		<a class="text-xl font-bold tracking-[-0.05em] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]" href="#top" aria-label={`${profile.name}, back to top`}>{profile.shortName}</a>
+		<nav class="flex items-center gap-[18px] md:gap-6" aria-label="Main navigation">
+			<a class="hidden text-sm font-semibold text-[var(--muted)] transition-colors hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] md:block" href="#work">Work</a>
+			<a class="hidden text-sm font-semibold text-[var(--muted)] transition-colors hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] md:block" href="#experience">Experience</a>
+			<a class="hidden text-sm font-semibold text-[var(--muted)] transition-colors hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] md:block" href="#about">About</a>
+			<a class="text-sm font-semibold text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]" href="/firmansah.pdf" target="_blank">CV</a>
+			<ThemeToggle client:load />
 		</nav>
 	</div>
 </header>
-
-<script is:inline>
-	const button = document.querySelector('.theme-toggle');
-	button?.addEventListener('click', () => {
-		const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-		document.documentElement.dataset.theme = nextTheme;
-		localStorage.setItem('theme', nextTheme);
-	});
-</script>
