@@ -10,9 +10,25 @@ export const profile = {
 		{ label: 'Email', href: 'mailto:adenafilfirmansah@gmail.com' },
 		{ label: 'GitHub', href: 'https://github.com/adenafil' },
 		{ label: 'LinkedIn', href: 'https://linkedin.com/in/adenafilf' },
-		{ label: 'CV', href: '/firmansah.pdf' },
+		{ label: 'CV', href: '/assets/firmansah.pdf' },
 	],
 };
+
+export const about = {
+	intro:
+		"I'm a full-stack developer based in Gresik, Indonesia. I build reliable web applications, backend services, and practical tools for real operational problems.",
+	detail:
+		'My work spans TypeScript and React applications, Laravel and NestJS services, databases, background processing, testing, and deployment. I enjoy turning complex requirements into software that is clear, maintainable, and useful.',
+};
+
+export const education = [
+	{
+		institution: 'Universitas Internasional Semen Indonesia',
+		degree: "Bachelor's Degree in Informatics",
+		period: '2022 - 2026',
+		gpa: 'GPA 3.72 / 4.00',
+	},
+];
 
 export const experiences = [
 	{

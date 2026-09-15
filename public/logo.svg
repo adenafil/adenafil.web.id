@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="logo-title">
+	<title id="logo-title">Nafil monogram</title>
 	<path d="M20 108V20h25l38 54V20h25v88H83L45 54v54H20Z" />
 	<style>
 		path { fill: #20211f; }

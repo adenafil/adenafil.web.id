@@ -11,7 +11,7 @@ export default function Footer() {
 				<div className="mb-3 flex gap-6 md:justify-end">
 					<a className="text-sm font-semibold text-[var(--muted)] hover:text-[var(--ink)]" href="https://github.com/adenafil" target="_blank" rel="noreferrer">GitHub</a>
 					<a className="text-sm font-semibold text-[var(--muted)] hover:text-[var(--ink)]" href="https://linkedin.com/in/adenafilf" target="_blank" rel="noreferrer">LinkedIn</a>
-					<a className="text-sm font-semibold text-[var(--muted)] hover:text-[var(--ink)]" href="/firmansah.pdf" target="_blank" rel="noreferrer">CV</a>
+					<a className="text-sm font-semibold text-[var(--muted)] hover:text-[var(--ink)]" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV</a>
 				</div>
 				<p className="text-xs text-[var(--faint)]">© {new Date().getFullYear()} {profile.name}. Built with Astro.</p>
 			</div>
