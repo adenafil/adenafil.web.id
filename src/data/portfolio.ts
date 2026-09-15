@@ -16,48 +16,6 @@ export const profile = {
 	],
 };
 
-export const projects = [
-	{
-		name: 'SIJAKU',
-		type: 'University course scheduling system',
-		year: '2025–2026',
-		description:
-			'A scheduling platform that coordinates lecturers, rooms, capacities, study programs, and institutional constraints through asynchronous optimization.',
-		highlights: [
-			'Real-time optimization jobs using Redis, BullMQ, and WebSockets',
-			'Excel import/export, PDF timetable generation, and role-based access',
-			'More than 170 test files across the API, frontend, and worker',
-		],
-		technologies: ['TypeScript', 'TanStack Start', 'NestJS', 'Prisma', 'MySQL', 'Bun', 'Redis', 'BullMQ'],
-	},
-	{
-		name: 'Asset Inventory Platform',
-		type: 'Internal enterprise asset management',
-		year: '2025',
-		description:
-			'An internal system for tracking company assets, locations, employees, organizational units, and the complete asset lifecycle.',
-		highlights: [
-			'Asset assignment and return workflows with activity history',
-			'Document uploads and QR-based public asset details',
-			'Role-based access and searchable management interfaces',
-		],
-		technologies: ['Laravel', 'React', 'TypeScript', 'Inertia.js', 'MySQL'],
-	},
-	{
-		name: 'SIDNOV E-Commerce',
-		type: 'Commerce platform for a local UMKM',
-		year: '2025',
-		description:
-			'A complete storefront and administration workspace covering customer discovery, checkout, fulfillment, content, and campaigns.',
-		highlights: [
-			'Product, cart, wishlist, checkout, order, and review flows',
-			'Google OAuth, Tripay QRIS payments, and shipping workflows',
-			'Cashback vouchers, email broadcasts, and campaign management',
-		],
-		technologies: ['Laravel', 'React', 'TypeScript', 'Inertia.js', 'MySQL'],
-	},
-];
-
 export const experiences = [
 	{
 		company: 'Universitas Internasional Semen Indonesia / PT Semen Indonesia',
