@@ -12,7 +12,6 @@ const isWorks = Astro.url.pathname === '/works' || Astro.url.pathname.startsWith
 		<nav class="flex items-center gap-4 sm:gap-[18px] md:gap-6" aria-label="Main navigation">
 			<a class:list={["text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]", isWorks ? "text-[var(--ink)]" : "text-[var(--muted)] hover:text-[var(--ink)]"]} href="/works" aria-current={isWorks ? 'page' : undefined}>Works</a>
 			<a class:list={["text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]", isAbout ? "text-[var(--ink)]" : "text-[var(--muted)] hover:text-[var(--ink)]"]} href="/about" aria-current={isAbout ? 'page' : undefined}>About</a>
-			<a class="text-sm font-semibold text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV</a>
 			<ThemeToggle client:load />
 		</nav>
 	</div>

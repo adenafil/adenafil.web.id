@@ -26,7 +26,7 @@ export const education = [
 		institution: 'Universitas Internasional Semen Indonesia',
 		degree: "Bachelor's Degree in Informatics",
 		period: '2022 - 2026',
-		gpa: 'GPA 3.72 / 4.00',
+		gpa: 'GPA 3.72',
 	},
 ];
 
