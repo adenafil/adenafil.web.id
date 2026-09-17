@@ -1,0 +1,154 @@
+---
+title: Taskify
+summary: A full-stack task management application that combines personal task workflows, filtering, due-date reminders, account security, and profile management in a Nuxt interface backed by a Laravel API.
+technologies:
+  - Nuxt 3
+  - Vue 3
+  - TypeScript
+  - Nuxt UI
+  - Laravel 12
+  - Laravel Sanctum
+  - Laravel Socialite
+  - SQLite
+  - Web Push
+  - PHPUnit
+order: 5
+draft: false
+links:
+  sources:
+    - label: Frontend source
+      url: https://github.com/adenafil/todolist-nuxt-ui
+    - label: API source
+      url: https://github.com/adenafil/taskify-api-laravel
+cover: /assets/taskify/2.jpeg
+coverAlt: Taskify dashboard showing task totals, status and priority filters, a task table, and pagination controls
+coverCaption: The dashboard combines task progress, filtering, and day-to-day management in one workspace.
+coverWidth: 1600
+coverHeight: 830
+---
+
+## About the project
+
+Taskify is a full-stack personal task management application built as a Nuxt
+frontend and a dedicated Laravel API. Together, the two applications give users
+one place to create an account, organize tasks, monitor progress, manage their
+profile, and receive reminders for upcoming deadlines.
+
+The interface keeps the main workflow centered on the task list, while the API
+owns authentication, task data, account activity, file exports, password
+recovery, and browser notification subscriptions. This separation keeps the
+user experience independent from the backend services that protect and process
+each user's data.
+
+## Task management workspace
+
+Users can create, update, complete, reopen, and delete tasks. Each task records
+a title, description, category, due date, priority, and status. The dashboard
+summarizes total, completed, in-progress, and expired tasks before presenting
+the detailed task list.
+
+Search, status filters, priority filters, and pagination help users narrow the
+workspace as the list grows. The same view supports direct task actions and an
+Excel export of the authenticated user's tasks. Every task request is scoped to
+the current user by the Laravel API.
+
+## Account access and recovery
+
+The public landing page introduces Taskify's focus on organizing tasks, setting
+reminders, and tracking progress. From there, users can create an account or
+sign in to reach the dashboard.
+
+<ProjectImage
+  src="/assets/taskify/1.jpeg"
+  alt="Taskify landing page introducing task organization, reminders, progress tracking, account creation, and login"
+  caption="The landing page gives new and returning users direct paths into the task management workflow."
+  width={1600}
+  height={821}
+/>
+
+Taskify supports email and password registration as well as Google and GitHub
+sign-in. Nuxt handles the account forms and authenticated navigation, while
+Laravel Sanctum issues API tokens and Laravel Socialite completes the social
+authentication callbacks.
+
+<ProjectImageGrid
+  images={[
+    {
+      src: '/assets/taskify/4.jpeg',
+      alt: 'Taskify account registration form with email, password, Google, and GitHub options',
+      caption: 'New users can register with credentials or continue through a supported social provider.',
+      width: 1600,
+      height: 823,
+    },
+    {
+      src: '/assets/taskify/6.jpeg',
+      alt: 'Taskify login form with email, password, password recovery, Google, and GitHub options',
+      caption: 'The login flow keeps password recovery and social sign-in close to the primary form.',
+      width: 1600,
+      height: 819,
+    },
+  ]}
+/>
+
+The recovery flow accepts a user's email address and sends a reset link through
+the backend. The API validates reset tokens before accepting a new password,
+keeping recovery separate from an active authenticated session.
+
+<ProjectImage
+  src="/assets/taskify/5.jpeg"
+  alt="Taskify forgot password form requesting the user's email address"
+  caption="Password recovery starts with a focused email form and returns users to the login flow."
+  width={1600}
+  height={829}
+/>
+
+## Profile and account security
+
+The profile workspace brings personal information and account controls into one
+area. Users can update their name, email, biography, and location, upload an
+avatar, change their password, configure notifications, or delete their
+account.
+
+Taskify also records account activity such as registration, login, logout,
+profile updates, and password changes. The security view presents the action,
+device, date, and IP address so users can review recent account access.
+
+<ProjectImage
+  src="/assets/taskify/3.jpeg"
+  alt="Taskify profile settings showing account details, recent login activity, security navigation, and account deletion"
+  caption="Profile and security settings connect personal details, recent account activity, and destructive account controls."
+  width={1600}
+  height={821}
+/>
+
+## Reminders and notifications
+
+Users can enable browser notifications from the profile settings. The Nuxt
+frontend registers a service worker, requests notification permission, and
+sends the resulting Push API subscription to the Laravel API.
+
+A scheduled Laravel command checks incomplete tasks due that day and uses Web
+Push to send reminders to subscribed browsers. Each reminder carries the task
+context and links back to a filtered dashboard view, connecting the background
+notification with the task that needs attention.
+
+## Architecture
+
+The Nuxt 3 frontend uses Vue 3, TypeScript, and Nuxt UI. Focused composables
+manage authentication, task queries and mutations, search, filtering,
+pagination, profile forms, activity history, and push notification state. The
+application renders with server-side rendering and communicates with the
+backend over HTTP.
+
+Laravel 12 provides the API, validation, authentication, database access,
+password recovery, and scheduled reminder workflow. Sanctum protects user and
+task endpoints, Socialite integrates Google and GitHub authentication,
+Maatwebsite Excel generates task exports, and Laravel notifications deliver
+password recovery email through the configured mail transport. The API includes
+Resend support for that transport. Eloquent stores users, tasks, activity
+records, and push subscriptions in the configured database.
+
+PHPUnit feature tests cover account authentication, social callbacks, password
+management and recovery, task operations and exports, notification
+subscriptions, avatar uploads, scheduled status updates, and user activity
+responses.
