@@ -19,6 +19,9 @@ const works = defineCollection({
 				.default({}),
 			cover: z.string().optional(),
 			coverAlt: z.string().optional(),
+			coverCaption: z.string().optional(),
+			coverWidth: z.number().int().positive().optional(),
+			coverHeight: z.number().int().positive().optional(),
 		}),
 });
 

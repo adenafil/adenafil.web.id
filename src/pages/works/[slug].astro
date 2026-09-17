@@ -65,7 +65,14 @@ const tableOfContents = headings.filter((heading) => heading.depth === 2 || head
 
 				{data.cover && data.coverAlt && (
 					<div>
-						<ProjectImage src={data.cover} alt={data.coverAlt} width={1919} height={917} caption="The dashboard connects academic data, optimization progress, room utilization, and recent activity." priority />
+						<ProjectImage
+							src={data.cover}
+							alt={data.coverAlt}
+							width={data.coverWidth ?? 1919}
+							height={data.coverHeight ?? 917}
+							caption={data.coverCaption}
+							priority
+						/>
 					</div>
 				)}
 

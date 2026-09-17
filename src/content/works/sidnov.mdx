@@ -1,0 +1,192 @@
+---
+title: SIDNOV
+summary: A full-stack e-commerce platform for an Indonesian handmade bag brand, covering product discovery, customer accounts, checkout, order fulfillment, content, and administration.
+technologies:
+  - Laravel
+  - React
+  - TypeScript
+  - Inertia.js
+  - MySQL
+  - Tailwind CSS
+  - Google OAuth
+  - Tripay QRIS
+order: 2
+draft: false
+links: {}
+cover: /assets/sidnov/1.jpeg
+coverAlt: SIDNOV storefront featuring handmade ethnic bags, product categories, new arrivals, and brand content
+coverCaption: The storefront combines product discovery, category browsing, and SIDNOV's handmade ethnic bag identity.
+coverWidth: 1794
+coverHeight: 4277
+---
+
+## About the project
+
+SIDNOV is a full-stack e-commerce platform developed for an Indonesian brand
+that produces handmade bags with contemporary ethnic motifs. It brings the
+public storefront, customer purchasing journey, order fulfillment, editorial
+content, and store administration into one application.
+
+The customer-facing experience supports product discovery, wishlists, carts,
+checkout, account management, order tracking, and reviews. A separate
+administration workspace gives store operators control over products, orders,
+cashback vouchers, stories, banners, and email broadcasts.
+
+## Product discovery and brand storytelling
+
+Customers can browse the complete catalog or narrow it by bag category. Each
+product page combines an image gallery, availability, price, product details,
+quantity selection, and direct actions for the cart and wishlist.
+
+<ProjectImageGrid
+  images={[
+    {
+      src: '/assets/sidnov/2.jpeg',
+      alt: 'SIDNOV shop page with bag categories, product cards, prices, and pagination',
+      caption: 'Category browsing and pagination help customers move through the product catalog.',
+      width: 1794,
+      height: 2383,
+    },
+    {
+      src: '/assets/sidnov/6.jpeg',
+      alt: 'SIDNOV product detail page with an image gallery, price, availability, quantity, cart, and wishlist controls',
+      caption: 'Product details bring imagery, availability, specifications, and purchasing actions together.',
+      width: 1794,
+      height: 2945,
+    },
+  ]}
+/>
+
+SIDNOV also uses editorial stories to connect products with broader fashion
+content. Visitors can browse published stories, open an article, and move
+between related entries. The public about page presents the brand's focus on
+combining Indonesian cultural motifs with practical, contemporary bags.
+
+<ProjectImageGrid
+  images={[
+    {
+      src: '/assets/sidnov/3.jpeg',
+      alt: 'SIDNOV stories page showing published fashion articles with images, excerpts, and pagination',
+      caption: 'The editorial index introduces published stories through image-led article cards.',
+      width: 1794,
+      height: 2011,
+    },
+    {
+      src: '/assets/sidnov/4.jpeg',
+      alt: 'SIDNOV story detail page with article metadata, a feature image, body content, and sharing controls',
+      caption: 'Each story has a dedicated reading view with authorship, publication details, and sharing controls.',
+      width: 1794,
+      height: 2746,
+    },
+  ]}
+/>
+
+<ProjectImage
+  src="/assets/sidnov/5.jpeg"
+  alt="SIDNOV about page describing the Indonesian handmade bag brand with product photography and a location map"
+  caption="The about page connects SIDNOV's brand story, products, and physical location."
+  width={1794}
+  height={2713}
+/>
+
+## Customer account and checkout
+
+Customers can create an account with email and password or sign in through
+Google OAuth. The account area brings together personal details, wishlists,
+cashback points, orders, reviews, and cashback vouchers.
+
+<ProjectImageGrid
+  images={[
+    {
+      src: '/assets/sidnov/7.jpeg',
+      alt: 'SIDNOV customer login page with email, password, Google sign-in, and registration options',
+      caption: 'Customers can authenticate with their credentials or continue with Google.',
+      width: 1794,
+      height: 857,
+    },
+    {
+      src: '/assets/sidnov/8.jpeg',
+      alt: 'SIDNOV customer account overview showing cashback points, wishlist totals, and account activities',
+      caption: 'The account overview provides one path to shopping activity, rewards, and profile management.',
+      width: 1794,
+      height: 1423,
+    },
+  ]}
+/>
+
+The cart recalculates totals as customers change quantities, choose a shipping
+service, apply an eligible cashback voucher, or use an available cashback point
+balance. Checkout supports Tripay QRIS payments and a manual transfer flow with
+payment-proof upload.
+
+<ProjectImage
+  src="/assets/sidnov/9.jpeg"
+  alt="SIDNOV shopping cart showing product quantities, shipping selection, voucher controls, order totals, and checkout options"
+  caption="The cart combines product quantities, shipping costs, rewards, and QRIS or manual checkout options."
+  width={1794}
+  height={2187}
+/>
+
+Successful checkouts create an order, preserve its line items and shipping
+details, and record status changes. Customers can inspect their order history,
+follow fulfillment progress, and submit reviews after an order is completed.
+
+## Administration workspace
+
+The administration dashboard summarizes revenue, registered customers,
+reviews, orders, and recent order volume. Dedicated workspaces let operators
+maintain the catalog and handle day-to-day fulfillment without editing data
+directly.
+
+<ProjectImage
+  src="/assets/sidnov/10.jpeg"
+  alt="SIDNOV administration dashboard showing revenue, users, reviews, orders, and an order activity chart"
+  caption="The administration dashboard provides a concise view of store and order activity."
+  width={1794}
+  height={857}
+/>
+
+<ProjectImageGrid
+  images={[
+    {
+      src: '/assets/sidnov/11.jpeg',
+      alt: 'SIDNOV product administration page with search, inventory records, availability toggles, and management actions',
+      caption: 'Operators can search products, change availability, and open product management actions.',
+      width: 1794,
+      height: 971,
+    },
+    {
+      src: '/assets/sidnov/12.jpeg',
+      alt: 'SIDNOV order administration page showing order status, purchased products, totals, address, and shipping information',
+      caption: 'Order management connects payment status, purchased items, totals, delivery details, and fulfillment actions.',
+      width: 1794,
+      height: 955,
+    },
+  ]}
+/>
+
+Content and campaign tools are part of the same workspace. Administrators can
+publish stories, rotate storefront banners, configure cashback vouchers, and
+prepare email broadcasts for selected recipients.
+
+<ProjectImage
+  src="/assets/sidnov/13.jpeg"
+  alt="SIDNOV story administration page with article authors, publication dates, views, statuses, and management actions"
+  caption="Story management exposes publishing status, readership, and editorial actions in one table."
+  width={1794}
+  height={857}
+/>
+
+## Architecture and integrations
+
+SIDNOV uses Laravel 12 for application logic, routing, authentication, database
+access, and integrations. React 19 and TypeScript render the interface through
+Inertia.js, while Tailwind CSS provides the responsive presentation layer.
+MySQL stores customers, addresses, products, carts, orders, reviews, content,
+and campaign data.
+
+Laravel Socialite handles Google OAuth. Tripay creates QRIS transactions and
+processes signed payment callbacks, while the checkout service records orders,
+line items, rewards, and status history inside database transactions. Shipping
+services provide delivery estimates and shipment tracking, and queued email
+broadcasts support customer campaigns.
