@@ -9,7 +9,13 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
 	site: 'https://adenafil.web.id',
 	trailingSlash: 'ignore',
-	integrations: [react(), mdx(), sitemap()],
+	integrations: [
+		react(),
+		mdx(),
+		sitemap({
+			filter: (page) => !/^\/404\/?$/.test(new URL(page).pathname),
+		}),
+	],
 	vite: {
 		plugins: [tailwindcss()],
 	},

@@ -8,6 +8,8 @@ interface Props {
 	imageWidth?: number;
 	imageHeight?: number;
 	structuredData?: Record<string, unknown> | Record<string, unknown>[];
+	indexable?: boolean;
+	canonical?: boolean;
 }
 
 const {
@@ -19,6 +21,8 @@ const {
 	imageWidth = 220,
 	imageHeight = 220,
 	structuredData,
+	indexable = true,
+	canonical = true,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
@@ -34,7 +38,7 @@ const jsonLd = structuredData
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
-		<meta name="robots" content="index, follow" />
+		<meta name="robots" content={indexable ? 'index, follow' : 'noindex, follow'} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="theme-color" content="#f4f4f1" />
 		<meta property="og:type" content="website" />
@@ -52,7 +56,7 @@ const jsonLd = structuredData
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImageURL} />
 		<meta name="twitter:image:alt" content={imageAlt} />
-		<link rel="canonical" href={canonicalURL} />
+		{canonical && <link rel="canonical" href={canonicalURL} />}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<title>{title}</title>
