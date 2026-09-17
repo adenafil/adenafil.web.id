@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro';
 import ProjectImage from '../../components/works/ProjectImage.astro';
 import ProjectImageGrid from '../../components/works/ProjectImageGrid.astro';
 import ProjectMeta from '../../components/works/ProjectMeta.astro';
+import ProjectTableOfContents from '../../components/works/ProjectTableOfContents.astro';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 
@@ -22,50 +23,60 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
+const { Content, headings } = await render(project);
 const { data } = project;
 const title = `${data.title} · Works · Ade Nafil Firmansah`;
 const description = data.summary;
 const hasLinks = Boolean(data.links.live || data.links.source);
+const tableOfContents = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 ---
 
 <Layout {title} {description}>
 	<div id="top"></div>
 	<Header />
 	<main id="main-content">
-		<article>
-			<header class="site-container pt-10 pb-12 md:pt-14 md:pb-14">
-				<a class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--muted)] transition-colors hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]" href="/works">
-					<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-					All works
-				</a>
+		<article class="project-layout">
+			<div class="project-main min-w-0">
+				<header class="pt-10 pb-12 md:pt-14 md:pb-14">
+					<a class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--muted)] transition-colors hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]" href="/works">
+						<svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+						All works
+					</a>
 
-				<div class="mt-9 md:mt-11">
-					<h1 class="text-[2.25rem] leading-[1.08] font-semibold tracking-[-0.035em] sm:text-5xl">{data.title}</h1>
-					<p class="mt-5 max-w-[78ch] text-base leading-7 text-[var(--muted)] md:text-lg md:leading-8">{data.summary}</p>
-					{hasLinks && (
-						<div class="mt-7 flex flex-wrap gap-x-6 gap-y-3">
-							{data.links.live && <a class="text-sm font-semibold underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]" href={data.links.live} target="_blank" rel="noreferrer">Live preview <span aria-hidden="true">↗</span></a>}
-							{data.links.source && <a class="text-sm font-semibold underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]" href={data.links.source} target="_blank" rel="noreferrer">Source code <span aria-hidden="true">↗</span></a>}
+					<div class="mt-9 md:mt-11">
+						<h1 class="text-[2.25rem] leading-[1.08] font-semibold tracking-[-0.035em] sm:text-5xl">{data.title}</h1>
+						<p class="mt-5 max-w-[78ch] text-base leading-7 text-[var(--muted)] md:text-lg md:leading-8">{data.summary}</p>
+						{hasLinks && (
+							<div class="mt-7 flex flex-wrap gap-x-6 gap-y-3">
+								{data.links.live && <a class="text-sm font-semibold underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]" href={data.links.live} target="_blank" rel="noreferrer">Live preview <span aria-hidden="true">↗</span></a>}
+								{data.links.source && <a class="text-sm font-semibold underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]" href={data.links.source} target="_blank" rel="noreferrer">Source code <span aria-hidden="true">↗</span></a>}
+							</div>
+						)}
+						<div class="mt-7 border-t border-[var(--line)] pt-5">
+							<ProjectMeta technologies={data.technologies} />
 						</div>
-					)}
-					<div class="mt-7 border-t border-[var(--line)] pt-5">
-						<ProjectMeta technologies={data.technologies} />
+						{tableOfContents.length > 0 && (
+							<div class="mt-8">
+								<ProjectTableOfContents headings={tableOfContents} mode="mobile" />
+							</div>
+						)}
+					</div>
+				</header>
+
+				{data.cover && data.coverAlt && (
+					<div>
+						<ProjectImage src={data.cover} alt={data.coverAlt} width={1919} height={917} caption="The dashboard connects academic data, optimization progress, room utilization, and recent activity." priority />
+					</div>
+				)}
+
+				<div class="py-12 md:py-16">
+					<div class="project-content">
+						<Content components={{ ProjectImage, ProjectImageGrid }} />
 					</div>
 				</div>
-			</header>
-
-			{data.cover && data.coverAlt && (
-				<div class="site-container">
-					<ProjectImage src={data.cover} alt={data.coverAlt} width={1919} height={917} caption="The dashboard connects academic data, optimization progress, room utilization, and recent activity." priority />
-				</div>
-			)}
-
-			<div class="site-container py-12 md:py-16">
-				<div class="project-content">
-					<Content components={{ ProjectImage, ProjectImageGrid }} />
-				</div>
 			</div>
+
+			{tableOfContents.length > 0 && <ProjectTableOfContents headings={tableOfContents} mode="desktop" />}
 		</article>
 	</main>
 	<Footer />

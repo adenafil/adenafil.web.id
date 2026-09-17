@@ -1,0 +1,64 @@
+---
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+interface Props {
+	headings: Heading[];
+	mode: 'desktop' | 'mobile';
+}
+
+const { headings, mode } = Astro.props;
+const className = mode === 'desktop' ? 'project-toc-desktop' : 'project-toc-mobile';
+---
+
+{mode === 'desktop' ? (
+	<aside class={className} aria-label="Table of contents">
+		<nav class="sticky top-24 border-l border-[var(--line)] pl-5" aria-labelledby="toc-title">
+			<p id="toc-title" class="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-[var(--faint)]">On this page</p>
+			<ul class="mt-5 space-y-3">
+				{headings.map((heading) => (
+					<li class:list={[heading.depth === 3 && 'pl-3']}>
+						<a
+							class:list={[
+								'block text-sm leading-5 text-[var(--muted)] transition-colors hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]',
+								heading.depth === 3 && 'text-[0.8125rem]',
+							]}
+							href={`#${heading.slug}`}
+						>
+							{heading.text}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	</aside>
+) : (
+	<details class:list={[className, 'group border-y border-[var(--line)]']}>
+		<summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-sm font-semibold text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] [&::-webkit-details-marker]:hidden">
+			<span>On this page</span>
+			<svg class="size-4 shrink-0 text-[var(--muted)] transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+				<path d="m7 10 5 5 5-5" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+		</summary>
+		<nav class="pb-5" aria-label="Table of contents">
+			<ul class="space-y-2.5">
+				{headings.map((heading) => (
+					<li class:list={[heading.depth === 3 && 'pl-4']}>
+						<a
+							class:list={[
+								'block text-sm leading-5 text-[var(--muted)] underline decoration-[var(--line)] underline-offset-4 hover:text-[var(--ink)] hover:decoration-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]',
+								heading.depth === 3 && 'text-[0.8125rem]',
+							]}
+							href={`#${heading.slug}`}
+						>
+							{heading.text}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	</details>
+)}
