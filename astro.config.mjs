@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://adenafil.web.id',
-	trailingSlash: 'always',
+	trailingSlash: 'ignore',
 	integrations: [react(), mdx(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()],
