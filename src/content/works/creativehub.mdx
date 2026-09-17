@@ -1,0 +1,99 @@
+---
+title: CreativeHub
+summary: Marketplace produk digital yang menghubungkan kreator dan pembeli melalui katalog, pencarian, keranjang belanja, checkout berbasis bukti pembayaran, pengelolaan pesanan, dan distribusi aset digital.
+technologies:
+  - Laravel 11
+  - PHP
+  - Blade
+  - Tailwind CSS
+  - Alpine.js
+  - MySQL
+  - Laravel Breeze
+  - Eloquent ORM
+  - Vite
+order: 6
+draft: false
+links:
+  source: https://github.com/adenafil/creative-hub
+cover: /assets/creativehub/1.webp
+coverAlt: Halaman katalog dan detail produk CreativeHub yang menampilkan kategori, daftar produk digital, informasi penjual, harga, dan proses checkout
+coverCaption: CreativeHub menghubungkan penemuan produk, informasi produk, transaksi, dan distribusi aset digital dalam satu marketplace.
+coverWidth: 2560
+coverHeight: 1664
+---
+
+## Tentang proyek
+
+CreativeHub adalah marketplace produk digital yang mempertemukan kreator dengan
+pembeli. Katalog mencakup template, e-book, ikon, font, UI kit, dan aset kreatif
+lainnya yang dapat dipublikasikan serta dijual langsung oleh pengguna.
+
+Aplikasi ini menyatukan pengalaman pembeli dan penjual dalam satu sistem.
+Pembeli dapat menemukan produk, menyelesaikan transaksi, dan mengunduh aset,
+sedangkan penjual dapat mengelola katalog serta memproses pesanan melalui
+dashboard yang sama.
+
+## Katalog dan penemuan produk
+
+Halaman utama menampilkan kategori dan produk terbaru dalam katalog yang dapat
+ditelusuri berdasarkan halaman. Pengguna juga dapat mempersempit daftar menurut
+kategori atau mencari produk berdasarkan judul tanpa berpindah ke alur yang
+terpisah.
+
+Setiap halaman detail menggabungkan cover, deskripsi, harga, kategori, profil
+penjual, dan produk terkait. Ulasan serta rating dari pembeli melengkapi
+informasi produk sehingga keputusan pembelian tetap berada dalam konteks
+katalog.
+
+## Keranjang dan checkout
+
+Pengguna yang telah masuk dapat membeli satu produk secara langsung atau
+menambahkan beberapa produk ke keranjang. Di dalam keranjang, produk
+dikelompokkan berdasarkan penjual agar metode pembayaran dan bukti pembayaran
+dapat diproses untuk penerima yang tepat.
+
+Checkout menggunakan alur konfirmasi manual. Pembeli memilih rekening milik
+penjual, mengisi informasi pembayaran, lalu mengunggah bukti transfer. Sistem
+membuat catatan pembayaran dan transaksi sebelum menghubungkannya dengan setiap
+produk yang dibeli. Pemeriksaan pada alur ini mencegah pengguna membeli
+produknya sendiri atau mengulangi pembelian produk yang sama.
+
+## Pengelolaan produk dan pesanan
+
+Dashboard penjual menyediakan alur untuk membuat, mencari, memperbarui, dan
+menghapus produk. Setiap produk menyimpan cover, deskripsi, harga, kategori,
+serta file aset yang terhubung dengan alur pembelian dan pengunduhan.
+
+Pesanan terhadap produk milik penjual muncul dalam ruang kerja terpisah. Penjual
+dapat memeriksa informasi produk dan bukti pembayaran, kemudian menyetujui atau
+menolak transaksi. Ketika pembayaran ditolak, sistem menyimpan alasan penolakan
+agar status pesanan dapat ditindaklanjuti oleh pembeli.
+
+## Riwayat pembelian dan distribusi aset
+
+Pembeli dapat memantau produk yang telah dibeli beserta status pembayarannya.
+Jika bukti pembayaran perlu diperbaiki, halaman detail pembelian menyediakan
+alur untuk mengunggah bukti baru sebelum pesanan kembali diperiksa.
+
+Catatan pembelian menghubungkan pengguna dengan akses untuk mengunduh aset
+produk. Sistem juga dapat membuat invoice dalam mata uang rupiah berdasarkan
+produk, penjual, pembeli, dan nomor transaksi. Setelah pembelian, pengguna dapat
+memberikan rating dan ulasan yang kemudian ditampilkan kembali pada detail
+produk.
+
+## Arsitektur
+
+CreativeHub dibangun sebagai aplikasi monolitik dengan Laravel 11. Controller
+menangani permintaan HTTP, autentikasi, validasi, file, dan alur dashboard,
+sementara service layer memisahkan pengambilan katalog, detail produk, serta
+proses checkout dari controller.
+
+Blade merender antarmuka di server, Tailwind CSS membentuk sistem tampilan, dan
+Alpine.js menangani interaksi ringan pada halaman. Laravel Breeze menyediakan
+fondasi autentikasi, sedangkan Vite mengompilasi CSS dan JavaScript frontend.
+
+MySQL menyimpan pengguna, detail penjual, kategori, produk, metode pembayaran,
+transaksi, pembelian, keranjang, dan ulasan. Relasi Eloquent menghubungkan data
+tersebut, dan database transaction menjaga pembuatan pembayaran serta pembelian
+tetap konsisten ketika checkout dijalankan. Paket Laravel Invoices menghasilkan
+dokumen transaksi yang dapat diakses dari riwayat pembelian.
