@@ -2,7 +2,7 @@ import { experiences } from '../data/portfolio';
 
 export default function Experience() {
 	return (
-		<section className="mx-auto w-[calc(100%-2rem)] max-w-6xl scroll-mt-16 border-t border-[var(--line)] py-20 md:w-[calc(100%-3rem)] md:scroll-mt-[72px] md:py-28" id="experience" aria-labelledby="experience-title">
+		<section className="site-container scroll-mt-16 border-t border-[var(--line)] py-20 md:scroll-mt-[72px] md:py-28" id="experience" aria-labelledby="experience-title">
 			<h2 id="experience-title" className="mb-12 text-2xl font-bold tracking-[-0.035em] md:mb-14 md:text-[1.7rem]">Work Experiences</h2>
 
 			<div className="space-y-20 md:space-y-24">

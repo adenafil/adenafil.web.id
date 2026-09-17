@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header.astro';
+import ProjectListItem from '../../components/works/ProjectListItem.astro';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+
+const projects = (await getCollection('works', ({ data }) => import.meta.env.PROD ? !data.draft : true))
+	.sort((a, b) => a.data.order - b.data.order);
+
+const title = 'Works · Ade Nafil Firmansah';
+const description = 'Selected software projects built by Ade Nafil Firmansah.';
+---
+
+<Layout {title} {description}>
+	<div id="top"></div>
+	<Header />
+	<main id="main-content" class="site-container min-h-[calc(100dvh-4rem)]">
+		<header class="max-w-3xl pt-16 pb-14 md:pt-24 md:pb-20">
+			<h1 class="text-[2.5rem] leading-[1.05] font-semibold tracking-[-0.04em] md:text-6xl">Works</h1>
+			<p class="mt-5 max-w-[58ch] text-base leading-7 text-[var(--muted)] md:text-lg md:leading-8">A selection of applications, backend systems, and practical tools I have helped build.</p>
+		</header>
+
+		<section class="pb-20 md:pb-28" aria-label="Selected projects">
+			{projects.length > 0 ? (
+				<ol class="m-0 list-none p-0">
+					{projects.map((project, index) => <ProjectListItem {project} {index} />)}
+				</ol>
+			) : (
+				<p class="border-y border-[var(--line)] py-8 text-[var(--muted)]">Project case studies are being prepared.</p>
+			)}
+		</section>
+	</main>
+	<Footer />
+</Layout>

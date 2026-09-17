@@ -1,0 +1,19 @@
+---
+interface Props {
+	src: string;
+	alt: string;
+	caption?: string;
+	width: number;
+	height: number;
+	priority?: boolean;
+}
+
+const { src, alt, caption, width, height, priority = false } = Astro.props;
+---
+
+<figure class="project-figure">
+	<a class="project-image-link" href={src} target="_blank" rel="noreferrer" aria-label={`${alt} — open full-size image`}>
+		<img class="h-auto w-full" src={src} alt={alt} width={width} height={height} loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />
+	</a>
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>

@@ -2,7 +2,7 @@ import { profile } from '../data/portfolio';
 
 export default function Footer() {
 	return (
-		<footer className="mx-auto flex w-[calc(100%-2rem)] max-w-6xl flex-col items-start justify-between gap-12 border-t border-[var(--line)] py-16 md:w-[calc(100%-3rem)] md:flex-row md:items-end md:py-20">
+		<footer className="site-container flex flex-col items-start justify-between gap-12 border-t border-[var(--line)] py-16 md:flex-row md:items-end md:py-20">
 			<div>
 				<p className="mb-2 text-sm text-[var(--muted)]">Have a project or opportunity in mind?</p>
 				<a className="text-lg font-semibold tracking-[-0.035em] transition-colors hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] sm:text-2xl" href={`mailto:${profile.email}`}>{profile.email}</a>

@@ -3,7 +3,7 @@ import { profile } from '../data/portfolio';
 export default function Hero() {
 	return (
 		<section
-			className="mx-auto grid min-h-[min(660px,calc(100dvh-4.5rem))] w-[calc(100%-2rem)] max-w-6xl grid-cols-1 items-center gap-12 py-16 md:w-[calc(100%-3rem)] md:grid-cols-[220px_1fr] md:gap-20 md:py-24 lg:gap-32"
+			className="site-container grid min-h-[min(660px,calc(100dvh-4.5rem))] grid-cols-1 items-center gap-12 py-16 md:grid-cols-[176px_minmax(0,1fr)] md:gap-16 md:py-24 lg:gap-20"
 			aria-labelledby="hero-title"
 		>
 			<div className="flex flex-col items-start gap-5">

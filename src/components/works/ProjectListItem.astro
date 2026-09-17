@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'works'>;
+	index: number;
+}
+
+const { project, index } = Astro.props;
+const href = `/works/${project.id}/`;
+---
+
+<li class="group border-t border-[var(--line)] last:border-b">
+	<a class="grid grid-cols-[2.25rem_minmax(0,1fr)_1.5rem] gap-x-4 py-7 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] sm:grid-cols-[3.5rem_minmax(0,1fr)_2rem] sm:gap-x-6 sm:py-8 md:grid-cols-[5rem_minmax(0,1fr)_2rem] md:py-9" href={href}>
+		<span class="pt-1 text-xs font-semibold tabular-nums text-[var(--faint)]" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+		<div>
+			<h2 class="text-xl leading-7 font-semibold tracking-[-0.025em] transition-colors group-hover:text-[var(--accent)] md:text-2xl">{project.data.title}</h2>
+			<p class="mt-2 max-w-[68ch] text-sm leading-6 text-[var(--muted)] md:text-base md:leading-7">{project.data.summary}</p>
+			<ul class="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-xs font-medium text-[var(--faint)]" aria-label={`${project.data.title} technologies`}>
+				{project.data.technologies.slice(0, 5).map((technology, technologyIndex) => (
+					<li class="flex items-center gap-2">
+						{technologyIndex > 0 && <span aria-hidden="true">·</span>}
+						<span>{technology}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+		<svg class="mt-1 size-5 transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+			<path d="M5 12h14M14 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"></path>
+		</svg>
+	</a>
+</li>

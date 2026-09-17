@@ -59,6 +59,164 @@
 		color: inherit;
 		text-decoration: none;
 	}
+
+	::selection {
+		background: var(--accent);
+		color: var(--canvas);
+	}
+}
+
+@layer components {
+	.site-container {
+		width: calc(100% - 2rem);
+		max-width: 56rem;
+		margin-inline: auto;
+	}
+
+	@media (min-width: 40rem) {
+		.site-container {
+			width: calc(100% - 3rem);
+		}
+	}
+}
+
+.project-content > :first-child {
+	margin-top: 0;
+}
+
+.project-content h2 {
+	margin-top: 3rem;
+	margin-bottom: 0.875rem;
+	font-size: clamp(1.5rem, 1.25rem + 0.8vw, 2rem);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.025em;
+}
+
+.project-content h3 {
+	margin-top: 2.5rem;
+	margin-bottom: 0.75rem;
+	font-size: 1.25rem;
+	font-weight: 700;
+	line-height: 1.35;
+	letter-spacing: -0.02em;
+}
+
+.project-content p,
+.project-content li {
+	color: var(--body);
+	font-size: 1rem;
+	line-height: 1.7;
+}
+
+.project-content p + p {
+	margin-top: 1.25rem;
+}
+
+.project-content ul,
+.project-content ol {
+	margin-top: 1.25rem;
+	padding-left: 1.25rem;
+}
+
+.project-content ul {
+	list-style: disc;
+}
+
+.project-content ol {
+	list-style: decimal;
+}
+
+.project-content li + li {
+	margin-top: 0.4rem;
+}
+
+.project-content a {
+	font-weight: 600;
+	text-decoration: underline;
+	text-decoration-color: var(--line);
+	text-underline-offset: 0.25em;
+}
+
+.project-content a:hover {
+	text-decoration-color: var(--accent);
+}
+
+.project-content code {
+	border-radius: 0.25rem;
+	background: var(--badge);
+	padding: 0.15rem 0.35rem;
+	color: var(--badge-text);
+	font-size: 0.875em;
+}
+
+.project-content pre {
+	margin-top: 1.5rem;
+	overflow-x: auto;
+	background: var(--badge);
+	padding: 1.25rem;
+	color: var(--badge-text);
+}
+
+.project-content pre code {
+	padding: 0;
+	background: transparent;
+}
+
+.project-content blockquote {
+	margin-top: 1.5rem;
+	border-left: 1px solid var(--accent);
+	padding-left: 1.25rem;
+}
+
+.project-content blockquote p {
+	color: var(--muted);
+}
+
+.project-figure {
+	margin: 2rem 0 2.75rem;
+}
+
+.project-image-link {
+	display: block;
+	overflow: hidden;
+	border: 1px solid var(--line);
+	background: var(--line);
+}
+
+.project-image-link:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 4px;
+}
+
+.project-figure figcaption {
+	margin-top: 0.65rem;
+	max-width: 76ch;
+	color: var(--muted);
+	font-size: 0.8125rem;
+	line-height: 1.55;
+}
+
+.project-image-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1.5rem;
+	margin: 2rem 0 2.75rem;
+}
+
+.project-image-grid .project-figure {
+	margin: 0;
+}
+
+@media (min-width: 48rem) {
+	.project-content p,
+	.project-content li {
+		font-size: 1.0625rem;
+	}
+
+	.project-image-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
