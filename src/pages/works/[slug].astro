@@ -29,9 +29,57 @@ const title = `${data.title} · Works · Ade Nafil Firmansah`;
 const description = data.summary;
 const hasLinks = Boolean(data.links.live || data.links.source || data.links.sources?.length);
 const tableOfContents = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const projectURL = `https://adenafil.web.id/works/${project.id}/`;
+const image = data.cover;
+const imageAlt = data.coverAlt;
+const imageWidth = data.coverWidth;
+const imageHeight = data.coverHeight;
+const structuredData = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'CreativeWork',
+		name: data.title,
+		description,
+		url: projectURL,
+		inLanguage: data.lang,
+		creator: {
+			'@type': 'Person',
+			name: 'Ade Nafil Firmansah',
+			url: 'https://adenafil.web.id/',
+		},
+		mainEntityOfPage: projectURL,
+		keywords: data.technologies.join(', '),
+		...(data.cover ? { image: new URL(data.cover, 'https://adenafil.web.id').href } : {}),
+		...(data.links.live ? { sameAs: data.links.live } : {}),
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Home',
+				item: 'https://adenafil.web.id/',
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'Works',
+				item: 'https://adenafil.web.id/works/',
+			},
+			{
+				'@type': 'ListItem',
+				position: 3,
+				name: data.title,
+				item: projectURL,
+			},
+		],
+	},
+];
 ---
 
-<Layout {title} {description}>
+<Layout {title} {description} lang={data.lang} {image} {imageAlt} {imageWidth} {imageHeight} {structuredData}>
 	<div id="top"></div>
 	<Header />
 	<main id="main-content">

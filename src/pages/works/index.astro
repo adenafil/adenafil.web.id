@@ -11,9 +11,25 @@ const projects = (await getCollection('works', ({ data }) => import.meta.env.PRO
 
 const title = 'Works · Ade Nafil Firmansah';
 const description = 'Selected software projects built by Ade Nafil Firmansah.';
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: title,
+	description,
+	url: 'https://adenafil.web.id/works/',
+	mainEntity: {
+		'@type': 'ItemList',
+		itemListElement: projects.map((project, index) => ({
+			'@type': 'ListItem',
+			position: index + 1,
+			name: project.data.title,
+			url: `https://adenafil.web.id/works/${project.id}/`,
+		})),
+	},
+};
 ---
 
-<Layout {title} {description}>
+<Layout {title} {description} {structuredData}>
 	<div id="top"></div>
 	<Header />
 	<main id="main-content" class="site-container min-h-[calc(100dvh-4rem)]">

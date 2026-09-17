@@ -7,9 +7,26 @@ import '../styles/global.css';
 
 const title = `About ${profile.name} · Full-Stack Developer`;
 const description = `Learn about ${profile.name}, his software development background, and education.`;
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfilePage',
+	name: title,
+	url: 'https://adenafil.web.id/about/',
+	mainEntity: {
+		'@type': 'Person',
+		name: profile.name,
+		jobTitle: profile.role,
+		image: 'https://adenafil.web.id/profile.jpg',
+		homeLocation: {
+			'@type': 'Place',
+			name: profile.location,
+		},
+		sameAs: ['https://github.com/adenafil', 'https://linkedin.com/in/adenafilf'],
+	},
+};
 ---
 
-<Layout {title} {description}>
+<Layout {title} {description} {structuredData}>
 	<div id="top"></div>
 	<Header />
 	<main id="main-content" class="site-container min-h-[calc(100dvh-4rem)]">

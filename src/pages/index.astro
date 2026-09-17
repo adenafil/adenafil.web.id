@@ -9,9 +9,31 @@ import '../styles/global.css';
 const title = 'Ade Nafil Firmansah · Full-Stack Developer';
 const description =
 	'Full-stack developer experienced in TypeScript, React, Laravel, NestJS, databases, background processing, testing, and deployment.';
+const structuredData = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: 'Ade Nafil Firmansah',
+		url: 'https://adenafil.web.id/',
+		inLanguage: 'en',
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		name: 'Ade Nafil Firmansah',
+		url: 'https://adenafil.web.id/',
+		image: 'https://adenafil.web.id/profile.jpg',
+		jobTitle: 'Full-Stack Developer',
+		homeLocation: {
+			'@type': 'Place',
+			name: 'Gresik, Indonesia',
+		},
+		sameAs: ['https://github.com/adenafil', 'https://linkedin.com/in/adenafilf'],
+	},
+];
 ---
 
-<Layout {title} {description}>
+<Layout {title} {description} {structuredData}>
 	<div id="top"></div>
 	<Header />
 	<main id="main-content">

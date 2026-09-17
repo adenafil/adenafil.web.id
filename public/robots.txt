@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adenafil.web.id/sitemap-index.xml

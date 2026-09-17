@@ -8,6 +8,7 @@ const works = defineCollection({
 		z.object({
 			title: z.string(),
 			summary: z.string(),
+			lang: z.enum(['en', 'id']).default('en'),
 			technologies: z.array(z.string()).min(1),
 			order: z.number().int().positive(),
 			draft: z.boolean().default(false),
