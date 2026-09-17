@@ -1,0 +1,38 @@
+---
+title: timetable-sa
+summary: A TypeScript library for solving timetabling, scheduling, and other constraint-driven optimization problems with Simulated Annealing.
+technologies:
+  - TypeScript
+  - Simulated Annealing
+  - Tabu Search
+  - Node.js
+  - Jest
+  - npm
+order: 7
+draft: false
+links:
+  sources:
+    - label: Documentation
+      url: https://timetable-sa.vercel.app/
+    - label: Source code
+      url: https://github.com/albertabayor/timetable-sa
+    - label: npm package
+      url: https://www.npmjs.com/package/timetable-sa
+---
+
+## About the library
+
+`timetable-sa` is a TypeScript library for solving constraint-driven
+optimization problems with Simulated Annealing. It was created for timetabling
+and scheduling, but its generic API also supports assignment, allocation, and
+other problems with custom states and rules.
+
+Users define their own hard constraints, soft preferences, and move generators,
+while the library manages the optimization process. It can combine Simulated
+Annealing with tabu search, reheating, intensification, and adaptive move
+selection to explore possible solutions and improve their fitness.
+
+The library also provides progress callbacks, structured logging, diagnostics,
+and cancellation for long-running searches. It is available as an MIT-licensed
+npm package with TypeScript declarations, tests, practical timetabling
+examples, and a dedicated documentation site.

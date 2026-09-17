@@ -241,10 +241,12 @@
 
 .project-figure figcaption {
 	margin-top: 0.5rem;
-	max-width: 76ch;
+	max-width: none;
 	color: var(--muted);
 	font-size: 0.8125rem;
 	line-height: 1.55;
+	text-align: center;
+	text-wrap: pretty;
 }
 
 .project-image-grid {
