@@ -28,6 +28,7 @@ export default function Hero() {
 						const opensNewTab = link.href.startsWith('http') || link.label === 'CV';
 						return (
 							<a
+								key={link.href}
 								className="text-sm font-semibold text-[var(--muted)] underline decoration-[var(--line)] underline-offset-4 transition-colors hover:text-[var(--ink)] hover:decoration-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
 								href={link.href}
 								target={opensNewTab ? '_blank' : undefined}
