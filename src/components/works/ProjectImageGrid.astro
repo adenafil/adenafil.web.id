@@ -9,12 +9,13 @@ interface ProjectImage {
 
 interface Props {
 	images: ProjectImage[];
+	layout?: 'default' | 'portrait';
 }
 
-const { images } = Astro.props;
+const { images, layout = 'default' } = Astro.props;
 ---
 
-<div class="project-image-grid">
+<div class:list={['project-image-grid', { 'project-image-grid-portrait': layout === 'portrait' }]}>
 	{images.map((image) => (
 		<figure class="project-figure">
 			<a class="project-image-link" href={image.src} target="_blank" rel="noreferrer" aria-label={`${image.alt} — open full-size image`}>

@@ -1,0 +1,154 @@
+---
+title: Score Hunter
+summary: A football match companion that brings live and upcoming fixtures, match predictions, prediction history, user statistics, and rankings into a Flutter mobile application backed by a dedicated TypeScript API.
+technologies:
+  - Flutter
+  - Dart
+  - TypeScript
+  - Express
+  - Prisma
+  - MySQL
+  - Firebase Authentication
+  - SQLite
+  - Zod
+  - Swagger
+  - Jest
+order: 4
+draft: false
+links:
+  sources:
+    - label: Mobile source
+      url: https://github.com/adenafil/score_hunter_fpmobile
+    - label: API source
+      url: https://github.com/adenafil/SiGolekAPI
+cover: /assets/sigolek-dan-scorehunter/1.jpg
+coverLayout: portrait
+coverAlt: Score Hunter home screen showing a live match, match odds, and a list of upcoming football fixtures
+coverCaption: The home screen combines live scores, match odds, and upcoming fixtures in one mobile view.
+coverWidth: 720
+coverHeight: 1600
+---
+
+## About the project
+
+Score Hunter is a football match companion built as a Flutter mobile
+application and a dedicated TypeScript backend called SiGolekAPI. Together,
+the two repositories form one system for following fixtures, making match
+predictions, and tracking the outcome of each prediction.
+
+The mobile application gives users a focused interface for live and upcoming
+matches, prediction categories, active guesses, completed results, profile
+statistics, and rankings. SiGolekAPI supplies the match data and odds while
+managing users, predictions, synchronization, and result validation.
+
+## Live and upcoming matches
+
+The home screen separates live or recently completed matches from upcoming
+fixtures. Each match presents its teams, kickoff information, stadium, score,
+and available odds. Pagination lets the application load more match data as a
+user continues browsing.
+
+Users can narrow the upcoming schedule by competition. The interface covers
+the Premier League, La Liga, Bundesliga, Ligue 1, and Serie A without moving
+the user away from the main fixture list.
+
+## Match prediction flow
+
+A match detail screen connects the current score and goal events with a set of
+prediction choices. Users can predict the regular-time result, the first-half
+result, the second-half result, or which team records the first event. The
+screen also shows the distribution of submitted votes for the selected
+category.
+
+When a user submits a prediction, the API records its match, category, answer,
+user, and expected match window. It rejects a second prediction by the same
+user for the same match and category, keeping each selection unambiguous.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/sigolek-dan-scorehunter/2.jpg',
+      alt: 'Score Hunter home screen with the football league selector open above the upcoming match list',
+      caption: 'The league selector keeps competition filtering within the fixture browsing flow.',
+      width: 720,
+      height: 1600,
+    },
+    {
+      src: '/assets/sigolek-dan-scorehunter/3.jpg',
+      alt: 'Score Hunter match detail screen showing the score, goal events, odds, prediction categories, and vote distribution',
+      caption: 'Match context and community vote distribution support the prediction decision.',
+      width: 720,
+      height: 1600,
+    },
+  ]}
+/>
+
+## Tracking prediction outcomes
+
+The **My Guess** workspace separates predictions that are still in play from
+completed history. Active entries display the current match state, elapsed
+time, score, selected odds, and prediction category so users can follow an
+open prediction without returning to the match browser.
+
+After synchronization checks a completed match, the API compares the stored
+answer with the final match data. The history view then labels the prediction
+as a win or loss and preserves the teams, final score, odds, and category that
+formed the original selection.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/sigolek-dan-scorehunter/5.jpg',
+      alt: 'Score Hunter My Guess screen listing predictions for matches currently in progress',
+      caption: 'In-play entries retain the live score, elapsed time, odds, and prediction category.',
+      width: 720,
+      height: 1600,
+    },
+    {
+      src: '/assets/sigolek-dan-scorehunter/4.jpg',
+      alt: 'Score Hunter prediction history showing completed predictions marked as wins and losses',
+      caption: 'Completed predictions are resolved into a clear win-or-loss history.',
+      width: 720,
+      height: 1600,
+    },
+  ]}
+/>
+
+## Profiles and leaderboard
+
+Firebase Authentication supports Google sign-in on the mobile application.
+SiGolekAPI creates or updates the corresponding user record and stores the
+Firebase token used by authenticated endpoints. The application also keeps the
+token locally with SQLite and sends it when requesting personal or prediction
+data.
+
+Each profile summarizes total predictions, wins, losses, and win rate. A
+leaderboard groups correct predictions by user and ranks participants by their
+result count, while also returning the current user's position.
+
+## Backend data pipeline
+
+SiGolekAPI uses Express controllers and services to expose fixtures, match
+details, stadium information, odds, vote totals, user data, prediction history,
+and rankings. It obtains football data from FotMob, transforms the responses
+for the mobile application, and stores selected league, match, and odds data in
+MySQL through Prisma.
+
+Short-lived database caching reduces repeated upstream requests for active
+match data. Finished matches can reuse their stored result, while scheduled
+synchronization checks unresolved predictions and updates each one after its
+match finishes. Zod validates user and prediction requests, and authenticated
+routes require the user's API token.
+
+## Architecture
+
+The Flutter application communicates with SiGolekAPI over HTTP. Firebase
+provides Google identity, while local SQLite storage and response caching keep
+session and frequently used mobile data available between requests.
+
+On the backend, Express handles routing and middleware, service classes contain
+the football and prediction workflows, and Prisma connects the services to
+MySQL. An OpenAPI document powers Swagger documentation, and Jest with
+Supertest covers the user and football API behavior.

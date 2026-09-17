@@ -27,7 +27,7 @@ const { Content, headings } = await render(project);
 const { data } = project;
 const title = `${data.title} · Works · Ade Nafil Firmansah`;
 const description = data.summary;
-const hasLinks = Boolean(data.links.live || data.links.source);
+const hasLinks = Boolean(data.links.live || data.links.source || data.links.sources?.length);
 const tableOfContents = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 ---
 
@@ -50,6 +50,7 @@ const tableOfContents = headings.filter((heading) => heading.depth === 2 || head
 							<div class="mt-7 flex flex-wrap gap-x-6 gap-y-3">
 								{data.links.live && <a class="text-sm font-semibold underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]" href={data.links.live} target="_blank" rel="noreferrer">Live preview <span aria-hidden="true">↗</span></a>}
 								{data.links.source && <a class="text-sm font-semibold underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]" href={data.links.source} target="_blank" rel="noreferrer">Source code <span aria-hidden="true">↗</span></a>}
+								{data.links.sources?.map((source) => <a class="text-sm font-semibold underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]" href={source.url} target="_blank" rel="noreferrer">{source.label} <span aria-hidden="true">↗</span></a>)}
 							</div>
 						)}
 						<div class="mt-7 border-t border-[var(--line)] pt-5">
@@ -64,7 +65,7 @@ const tableOfContents = headings.filter((heading) => heading.depth === 2 || head
 				</header>
 
 				{data.cover && data.coverAlt && (
-					<div class="project-cover">
+					<div class:list={['project-cover', { 'project-cover-portrait': data.coverLayout === 'portrait' }]}>
 						<ProjectImage
 							src={data.cover}
 							alt={data.coverAlt}

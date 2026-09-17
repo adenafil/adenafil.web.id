@@ -222,6 +222,11 @@
 	margin: 0;
 }
 
+.project-cover-portrait {
+	max-width: 18rem;
+	margin-inline: auto;
+}
+
 .project-image-link {
 	display: block;
 	overflow: hidden;
@@ -253,6 +258,15 @@
 	margin: 0;
 }
 
+.project-image-grid-portrait {
+	justify-content: center;
+}
+
+.project-image-grid-portrait .project-figure {
+	width: min(100%, 18rem);
+	justify-self: center;
+}
+
 @media (min-width: 48rem) {
 	.project-content p,
 	.project-content li {
@@ -261,6 +275,15 @@
 
 	.project-image-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.project-image-grid-portrait {
+		grid-template-columns: repeat(2, minmax(0, 17rem));
+		gap: 2rem;
+	}
+
+	.project-image-grid-portrait .project-figure {
+		width: 100%;
 	}
 }
 
