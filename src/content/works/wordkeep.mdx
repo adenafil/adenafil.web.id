@@ -1,0 +1,123 @@
+---
+title: Wordkeep
+summary: A private vocabulary archive that keeps words connected to where they were found, with capture sessions, encounter histories, deliberate reviews, and an installable PWA.
+technologies:
+  - TypeScript
+  - React
+  - Vite
+  - Bun
+  - Hono
+  - PostgreSQL
+  - Drizzle ORM
+  - Cloudflare R2
+  - Tailwind CSS
+  - PWA
+order: 8
+draft: false
+links: {}
+cover: /assets/wordkeep/0.png
+coverAlt: Wordkeep Sessions workspace showing groups of captured vocabulary sources and their curation status
+coverCaption: Sessions keep screenshots and other source material together while the Inbox collects captures awaiting curation.
+coverWidth: 1919
+coverHeight: 928
+---
+
+## About the project
+
+Wordkeep is a personal vocabulary memory system for saving unfamiliar words
+without losing the moments in which they appeared. Rather than treating a word
+as an isolated flashcard, it connects each term to its original capture, the
+source it came from, and every later encounter with it.
+
+The application is intentionally private and single-user. Its workflow starts
+with a screenshot or a passage of text, continues through manual curation, and
+returns to the same context during review. It is available on desktop and as
+an installable mobile web app.
+
+## Capture first, organize later
+
+Capture Sessions group screenshots and text from a particular episode, chapter,
+or reading session. The Inbox brings captures from across Sessions into one
+curation queue. Multiple screenshots can be uploaded together, and captures
+can be moved through inbox, in-progress, curated, and archived states.
+
+When curating a capture, the owner can record a term and its meaning, then
+connect it to the part of the source where it appeared. A term can have
+multiple encounters, preserving a chronological record of where it was seen
+instead of replacing earlier context with a single definition.
+
+## Find words in context
+
+The Terms workspace makes the archive searchable across terms, meanings, notes,
+and capture context. Opening a term reveals its encounters in order, with the
+associated source media and recognition history. This makes it possible to
+revisit a word through the scenes and passages that made it memorable.
+
+## Deliberate review and progress
+
+Review presents a term alongside one of its saved encounters so the owner can
+try to recall its meaning before revealing the answer. A review can be marked
+unknown, familiar, uncertain, or known, or skipped without a rating. Each term
+appears only once in a review session; after a saved review, it normally rests
+for 72 hours before returning to the random pool.
+
+<ProjectImage
+  src="/assets/wordkeep/4.jpeg"
+  alt="Wordkeep review screen with a saved video context, reveal-answer control, and four recognition choices"
+  caption="Reviews bring back the original context before asking how well the term is remembered."
+  width={1794}
+  height={1180}
+/>
+
+The Stats page summarizes captures, unique terms, encounters, frequently seen
+words, and changes in recognition. Its activity view can show the past 7 days,
+30 days, or year without treating an unrated encounter as a failed review. The
+owner can also export the archive's records as JSON.
+
+<ProjectImage
+  src="/assets/wordkeep/5.jpeg"
+  alt="Wordkeep statistics page showing archive totals, a daily activity chart, frequently encountered terms, and data export"
+  caption="Statistics reflect saved encounters and deliberate reviews without turning every new word into a performance target."
+  width={1794}
+  height={1959}
+/>
+
+## An installable mobile workflow
+
+Wordkeep is a responsive PWA with a Web Share Target. On a supported Android
+device, screenshots shared from another app can enter Wordkeep's capture flow,
+ready to be curated later. The mobile interface keeps Sessions, Inbox, Terms,
+Review, and Stats within reach through bottom navigation.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/wordkeep/hp2.jpg',
+      alt: 'Wordkeep mobile Inbox with screenshot capture actions, status filters, and saved captures',
+      caption: 'The mobile Inbox provides a quick route from a shared screenshot to later curation.',
+      width: 576,
+      height: 1280,
+    },
+    {
+      src: '/assets/wordkeep/hp4.jpg',
+      alt: 'Wordkeep mobile review showing a saved video context and a reveal-answer action',
+      caption: 'Review retains the encounter and recall controls on a narrow screen.',
+      width: 576,
+      height: 1280,
+    },
+  ]}
+/>
+
+## Architecture and privacy
+
+The frontend is a React and TypeScript application built with Vite, Tailwind
+CSS, and an installable PWA shell. A Bun-hosted Hono API manages sessions,
+captures, terms, encounters, reviews, statistics, and exports. PostgreSQL and
+Drizzle ORM store the archive's structured data, while capture images remain
+in private Cloudflare R2 storage and are served through short-lived URLs.
+
+Wordkeep uses server-side session authentication for its single owner. The
+service worker caches the static application shell, not private API responses
+or capture media. This separation keeps the archive usable as an installed app
+without making personal content public or claiming it is available offline.

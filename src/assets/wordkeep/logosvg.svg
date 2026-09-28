@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Wordkeep mark">
+  <rect x="34" y="34" width="444" height="444" rx="128" fill="#3b5bfe"/>
+  <path d="M176 128 H336 V384 L256 318 L176 384 Z" fill="#f4f5f7"/>
+  <path d="M206 203 L226 274 L256 235 L286 274 L306 203" fill="none" stroke="#3b5bfe" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
