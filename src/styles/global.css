@@ -123,6 +123,26 @@
 	margin-top: 0;
 }
 
+@media (hover: hover) and (pointer: fine) {
+	.project-list-item:hover {
+		opacity: 0.42;
+	}
+}
+
+.project-list-item:focus-within {
+	opacity: 0.42;
+}
+
+.project-list-item {
+	transition: opacity 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.project-list-item {
+		transition: none;
+	}
+}
+
 .project-content h2 {
 	scroll-margin-top: 6rem;
 	margin-top: 2.25rem;

@@ -40,7 +40,7 @@ const structuredData = {
 
 		<section class="pb-20 md:pb-28" aria-label="Selected projects">
 			{projects.length > 0 ? (
-				<ol class="m-0 grid list-none grid-cols-1 gap-x-12 p-0 md:grid-cols-2">
+				<ol class="project-list m-0 grid list-none grid-cols-1 gap-x-12 p-0 md:grid-cols-2">
 					{projects.map((project) => <ProjectListItem project={project} />)}
 				</ol>
 			) : (

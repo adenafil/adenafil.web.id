@@ -9,7 +9,7 @@ const { project } = Astro.props;
 const href = `/works/${project.id}/`;
 ---
 
-<li>
+<li class="project-list-item">
 	<a class="group relative -mx-3 block rounded-sm px-3 py-6 transition-colors duration-200 hover:bg-[var(--line)]/25 focus-visible:bg-[var(--line)]/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] motion-reduce:transition-none sm:-mx-4 sm:px-4 sm:py-7" href={href}>
 		<h2 class="flex items-baseline gap-2 text-lg leading-7 font-bold tracking-[-0.02em] md:text-xl">
 			{project.data.title}
