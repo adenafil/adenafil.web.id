@@ -18,7 +18,7 @@ export default function Hero() {
 			</div>
 
 			<div className="max-w-2xl text-center">
-				<p className="mb-2 text-xs font-bold uppercase tracking-[0.12em] text-[var(--accent)]">{profile.role}</p>
+				<p className="mb-2 text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">{profile.role}</p>
 				<h1 id="hero-title" className="mb-3 text-[2rem] leading-[1.15] font-semibold tracking-[-0.035em] sm:text-[2.25rem] md:text-[2.5rem]">
 					Hi, I'm {profile.name}.
 				</h1>
