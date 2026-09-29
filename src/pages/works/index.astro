@@ -33,15 +33,15 @@ const structuredData = {
 	<div id="top"></div>
 	<Header />
 	<main id="main-content" class="site-container min-h-[calc(100dvh-4rem)]">
-		<header class="max-w-3xl pt-16 pb-14 md:pt-24 md:pb-20">
-			<h1 class="text-[2.5rem] leading-[1.05] font-semibold tracking-[-0.04em] md:text-6xl">Works</h1>
-			<p class="mt-5 max-w-[58ch] text-base leading-7 text-[var(--muted)] md:text-lg md:leading-8">A selection of applications, backend systems, and practical tools I have helped build.</p>
+		<header class="max-w-3xl pt-14 pb-8 md:pt-20 md:pb-10">
+			<h1 class="text-2xl leading-8 font-bold tracking-[-0.02em] md:text-[1.75rem] md:leading-9">Works</h1>
+			<p class="mt-3 max-w-[58ch] text-[0.9375rem] leading-6 text-[var(--muted)]">A selection of applications, backend systems, and practical tools I have helped build.</p>
 		</header>
 
 		<section class="pb-20 md:pb-28" aria-label="Selected projects">
 			{projects.length > 0 ? (
-				<ol class="m-0 list-none p-0">
-					{projects.map((project, index) => <ProjectListItem {project} {index} />)}
+				<ol class="m-0 grid list-none grid-cols-1 gap-x-12 p-0 md:grid-cols-2">
+					{projects.map((project) => <ProjectListItem project={project} />)}
 				</ol>
 			) : (
 				<p class="border-y border-[var(--line)] py-8 text-[var(--muted)]">Project case studies are being prepared.</p>
