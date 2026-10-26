@@ -1,123 +1,350 @@
 ---
 title: Wordkeep
-summary: A private vocabulary archive that keeps words connected to where they were found, with capture sessions, encounter histories, deliberate reviews, and an installable PWA.
+summary: A private, single-owner vocabulary archive that keeps words attached to the moments where they appeared, with encounter timelines, deliberate reviews, and review health.
 technologies:
   - TypeScript
   - React
-  - Vite
   - Bun
   - Hono
   - PostgreSQL
-  - Drizzle ORM
-  - Cloudflare R2
+  - Vite
   - Tailwind CSS
+  - TanStack Query
+  - Drizzle ORM
+  - RustFS
+  - Tesseract OCR
+  - Web Push
+  - Cloudflare Pages
   - PWA
 order: 2
 draft: false
 links: {}
-cover: /assets/wordkeep/0.png
-coverAlt: Wordkeep Sessions workspace showing groups of captured vocabulary sources and their curation status
-coverCaption: Sessions keep screenshots and other source material together while the Inbox collects captures awaiting curation.
-coverWidth: 1919
-coverHeight: 928
+cover: /assets/wordkeep/cover.jpg
+coverAlt: Wordkeep cover with the tagline Words arrive with baggage, phone screens for Terms, Review, and Stats, and a film strip of saved scenes
+coverCaption: Capture the source, build the vocabulary, track progress, and review with meaning.
+coverWidth: 1672
+coverHeight: 941
 ---
 
 ## About the project
 
-Wordkeep is a personal vocabulary memory system for saving unfamiliar words
-without losing the moments in which they appeared. Rather than treating a word
-as an isolated flashcard, it connects each term to its original capture, the
-source it came from, and every later encounter with it.
+Wordkeep is a private vocabulary memory system built for one person: an
+Indonesian speaker learning English from films, series, articles, and
+conversations. It starts from a simple observation: a new word rarely arrives
+alone. It arrives inside a scene, a line of dialogue, a paragraph, or a
+conversation that gives it meaning.
 
-The application is intentionally private and single-user. Its workflow starts
-with a screenshot or a passage of text, continues through manual curation, and
-returns to the same context during review. It is available on desktop and as
-an installable mobile web app.
+Instead of turning words into isolated flashcards, Wordkeep keeps each term
+attached to the capture where it was found and to every later encounter. A
+screenshot or passage is saved first, and curation comes later. The owner
+records the canonical term, its part of speech, the meaning in that specific
+context, and a note. Reviews then bring the term back with its original scene
+rather than a bare definition.
+
+The application is intentionally single-owner. There is no public sign-up,
+classroom, or social layer. It runs on desktop and as an installable mobile web
+app, with the same private archive behind both. The design principle is simple:
+record what happened. Do not manufacture a score.
 
 ## Capture first, organize later
 
-Capture Sessions group screenshots and text from a particular episode, chapter,
-or reading session. The Inbox brings captures from across Sessions into one
-curation queue. Multiple screenshots can be uploaded together, and captures
-can be moved through inbox, in-progress, curated, and archived states.
+Sessions group captures from one activity or source: an episode, a chapter, an
+article, a game, or a conversation. A Session can carry source metadata such as
+a show, season, episode, or publication, and each capture can override those
+fields when the source changes mid-session. Captures that do not belong
+anywhere yet can stay ungrouped.
 
-When curating a capture, the owner can record a term and its meaning, then
-connect it to the part of the source where it appeared. A term can have
-multiple encounters, preserving a chronological record of where it was seen
-instead of replacing earlier context with a single definition.
+The Inbox is not another folder. It is a cross-Session view of captures by
+curation status: Inbox, In progress, Curated, and Archived. A capture can move
+between states without leaving its Session.
 
-## Find words in context
-
-The Terms workspace makes the archive searchable across terms, meanings, notes,
-and capture context. Opening a term reveals its encounters in order, with the
-associated source media and recognition history. This makes it possible to
-revisit a word through the scenes and passages that made it memorable.
-
-## Deliberate review and progress
-
-Review presents a term alongside one of its saved encounters so the owner can
-try to recall its meaning before revealing the answer. A review can be marked
-unknown, familiar, uncertain, or known, or skipped without a rating. Each term
-appears only once in a review session; after a saved review, it normally rests
-for 72 hours before returning to the random pool.
-
-<ProjectImage
-  src="/assets/wordkeep/4.jpeg"
-  alt="Wordkeep review screen with a saved video context, reveal-answer control, and four recognition choices"
-  caption="Reviews bring back the original context before asking how well the term is remembered."
-  width={1794}
-  height={1180}
-/>
-
-The Stats page summarizes captures, unique terms, encounters, frequently seen
-words, and changes in recognition. Its activity view can show the past 7 days,
-30 days, or year without treating an unrated encounter as a failed review. The
-owner can also export the archive's records as JSON.
-
-<ProjectImage
-  src="/assets/wordkeep/5.jpeg"
-  alt="Wordkeep statistics page showing archive totals, a daily activity chart, frequently encountered terms, and data export"
-  caption="Statistics reflect saved encounters and deliberate reviews without turning every new word into a performance target."
-  width={1794}
-  height={1959}
-/>
-
-## An installable mobile workflow
-
-Wordkeep is a responsive PWA with a Web Share Target. On a supported Android
-device, screenshots shared from another app can enter Wordkeep's capture flow,
-ready to be curated later. The mobile interface keeps Sessions, Inbox, Terms,
-Review, and Stats within reach through bottom navigation.
+Screenshots can be added in bulk, up to 200 at a time, with a reviewable story
+order before upload, three concurrent uploads, and duplicate detection based on
+the image content hash. The upload queue keeps every file independent, so one
+failure does not sink the batch. Text captures cover articles and conversations
+where a screenshot would be the wrong container. On Android, Wordkeep is also a
+share target: a screenshot shared from another app lands in the capture flow.
 
 <ProjectImageGrid
   layout="portrait"
   images={[
     {
-      src: '/assets/wordkeep/hp2.jpg',
-      alt: 'Wordkeep mobile Inbox with screenshot capture actions, status filters, and saved captures',
-      caption: 'The mobile Inbox provides a quick route from a shared screenshot to later curation.',
-      width: 576,
-      height: 1280,
+      src: '/assets/wordkeep/inbox.jpg',
+      alt: 'Wordkeep mobile Inbox with Add screenshots and Add text actions, Inbox, In progress, Curated, and Archived status counts, and a saved video capture',
+      caption: 'The Inbox gathers captures from every Session into one queue. Status counts stay visible while the owner decides what to curate next.',
+      width: 1080,
+      height: 2408,
     },
     {
-      src: '/assets/wordkeep/hp4.jpg',
-      alt: 'Wordkeep mobile review showing a saved video context and a reveal-answer action',
-      caption: 'Review retains the encounter and recall controls on a narrow screen.',
-      width: 576,
-      height: 1280,
+      src: '/assets/wordkeep/session-civil-wrongs.jpg',
+      alt: 'Wordkeep Session titled 10. Civil Wrongs for Shameless season 3 episode 10, showing 63 captures and a curated screenshot with dialogue',
+      caption: 'A Session keeps one episode together. This one holds 63 captures from Shameless season 3, episode 10.',
+      width: 1080,
+      height: 2408,
+    },
+  ]}
+/>
+
+## A capture, end to end
+
+One capture in this archive comes from Shameless season 3, episode 10, "Civil
+Wrongs". The subtitle reads: "Ian, that bruise is looking better. Who beat you
+up again?" One moment produced two terms: bruise as a noun, with the meaning
+"Memar atau luka lebam pada kulit", and beat up as a phrasal verb, with the
+meaning "Memukuli seseorang hingga terluka/lebam". Each keeps its own canonical
+form, part of speech, contextual meaning, recognition, and pronunciation
+control. The exact line stays as Context.
+
+A capture can hold as many terms as the moment warrants. Source fields stay
+with the capture. Terms inherit the scene. When the same word appears again, a
+new encounter is added to the existing term instead of creating another card.
+That is how a word accumulates history: not one definition, but a sequence of
+places it appeared.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/wordkeep/capture-curation.jpg',
+      alt: 'Wordkeep capture curation showing the terms bruise and beat up from a Shameless screenshot, each with a part of speech, Indonesian meaning, recognition badge, and pronunciation button',
+      caption: 'One screenshot produced two terms. Each keeps its own part of speech, meaning in context, recognition, and pronunciation.',
+      width: 1080,
+      height: 2408,
+    },
+  ]}
+/>
+
+Subtitle transcription is the one place where Wordkeep automates capture. The
+manual reader crops the subtitle band and runs Tesseract OCR server-side. The
+result is editable before it becomes Context. A scheduled backfill can fill an
+empty Context only when the reading is English, confidently read (mean
+confidence at least 60 with no weak words), one to four lines, at most 300
+characters, and not a bare sound cue. Weaker readings stay suggestions. OCR
+never writes meanings, translations, tags, terms, or recognition. It only helps
+preserve the line that was already on screen.
+
+## Terms with a memory
+
+The Terms workspace searches terms and encounters: canonical forms, surface
+forms, meanings, notes, and capture context. Terms can be sorted by frequency,
+recency, alphabetically, or shuffled for rediscovery. Opening a term shows its
+encounters in chronological order, the source media for each one, and the
+recognition trail across them.
+
+Part of speech is part of a term's identity. Light as a noun and light as an
+adjective are separate terms with independent timelines, because they are
+different things to learn. When two spellings or forms turn out to be the same
+word, a merge moves the encounters and reviews to the surviving term and keeps
+a general note.
+
+The Rediscover captures view reopens the archive by story order, oldest,
+newest, or random. It is a way to meet a saved moment again without starting
+from a word, which is useful when the exact term has been forgotten but the
+scene has not.
+
+Bail is a verb with three encounters: first captured on 21 September 2026 and
+last met on 23 October 2026. Its recognition trail is still unknown, unknown,
+unknown. Wordkeep does not hide that. The archive shows how long the word has
+been carried, where it has appeared, and how often it has actually been met.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/wordkeep/terms.jpg',
+      alt: 'Wordkeep Terms screen with Rediscover captures, encounter search, a Most frequent sort, and Bail listed with three encounters',
+      caption: 'Terms searches every canonical form, meaning, note, and encounter. Bail already carries three encounters, about a month apart.',
+      width: 1080,
+      height: 2408,
+    },
+  ]}
+/>
+
+## Deliberate review
+
+A review starts with a term and one of its saved encounters: a video still, a
+subtitle, a text passage, or a note. The meaning stays hidden behind Reveal
+answer so the owner can try to recall it first. Revealing exposes the meaning in
+context, the encounter note, and the first-encounter date. The card also offers
+an optional review note, four ratings (unknown, familiar, uncertain, and
+known), a link back to the capture, and a skip that records nothing.
+
+Each term appears at most once in a review session. A saved review rests the
+term for 72 hours before it can return to the queue, and the page can filter
+the queue by recognition state. The review header shows today's count against
+the daily goal. At the time of this snapshot, 177 reviews had been completed
+today against a goal of 71.
+
+Review records are deliberately kept apart from encounters. A review schedules
+the next check-in, but it does not rewrite the natural encounter history or the
+encounter-based statistics. That separation is what lets the archive
+distinguish between meeting a word in the wild and sitting down to test it.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/wordkeep/review-acquit.jpg',
+      alt: 'Wordkeep review card for the verb Acquit with a hidden answer, a saved video still, the subtitle I was acquitted, and a Reveal answer button',
+      caption: 'A review starts with the term and one saved encounter. The meaning stays behind Reveal answer so recall comes first.',
+      width: 1080,
+      height: 2408,
+    },
+    {
+      src: '/assets/wordkeep/review-delight.jpg',
+      alt: 'Wordkeep review card for the noun Delight with the answer still hidden, a saved video still, a review note field, four recognition ratings, Open capture, and Skip without rating',
+      caption: 'The card keeps the answer hidden while the review note, four ratings, Open capture, and Skip without rating stay within reach.',
+      width: 1080,
+      height: 2408,
+    },
+  ]}
+/>
+
+On supported devices, review cards arrive through Web Push. The owner chooses
+an interval of 1, 5, 10, 15, 30, or 60 minutes and a quiet-hours window. The
+scheduler sends one term at a time and respects the 72-hour cooldown. On
+Android Chrome the notification offers Reveal and Known or Still learning
+actions, and the quick sheet carries all four ratings. On iPhone the card
+arrives without action buttons. When the queue is empty, the cards stop
+quietly.
+
+## Progress, not pressure
+
+The Stats page is descriptive rather than judgmental. Recent activity counts
+captures, curated captures, new terms, encounters, and reviews separately
+across 7 days, 30 days, 12 months, a calendar year, or a custom range. Quiet
+days are shown as zero rather than skipped.
+
+Weekly recap compares the current week with the previous one. Learned and
+Slipping summarize the natural encounter trail: Learned means the first-ever
+rating was unknown and the latest is known. Slipping means a term reached known
+at some point and later left it. The Coming due forecast, the review-hours
+chart, the transition matrix, and stubborn terms answer narrower questions
+about pacing and recall.
+
+The archive can be exported as one JSON file containing sessions, capture
+records, terms, encounters, and preferences. Image bytes stay in private object
+storage and the export references them by object key.
+
+None of these views turns a quiet day into a failure. The archive can show a
+term met repeatedly without pretending it has been mastered.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/wordkeep/stats-overview.jpg',
+      alt: 'Wordkeep Recent activity panel showing 7,946 recorded events over one year, with separate counts for captures, curated captures, new terms, encounters, and reviews',
+      caption: 'Recent activity separates captures, curation, new terms, encounters, and reviews. Quiet days are shown as zero, not as failure.',
+      width: 1080,
+      height: 2408,
+    },
+  ]}
+/>
+
+## Review health
+
+Review health is the most operational part of the Stats page. It reads the live
+queue and reports four things: what is waiting, how fast the queue moves, how
+often reviews repeat the same term, and what a given pace would do to the
+backlog.
+
+At the time of these screenshots, 1,477 terms were reviewable: 1,042 ready now
+and 435 resting in the 72-hour cooldown. Of the ready terms, 231 had never been
+reviewed. The owner had completed 1,888 reviews in 30 days across 23 active
+days, an average of 82.1 reviews per active day. New terms were arriving at
+53.3 per day over the last seven days and 37.9 per day over 30 days.
+
+The projection table makes the trade-off legible. At the current seven-day pace
+of 208.4 reviews per day, the queue turns over in 4.1 days and the backlog
+clears in 1.5 days. At the saved goal of 71 per day, turnover stretches to 17.8
+days and the backlog to 13 days. At 60 per day, the numbers become 21.6 and
+34.4 days. At 120 per day, they fall to 9.3 and 3.5 days. The point is not to
+prescribe a pace, but to show what each pace buys.
+
+Spacing and leakage explain why a large queue can still feel unproductive. The
+page reports the median gap between two reviews of the same term, the delay
+before a first review, same-day and same-sitting repeats, and the measured
+seconds between reviews inside a sitting. Stubborn terms, reviewed five or more
+times without reaching known, are flagged for a fresh context or mnemonic
+rather than another pass through the same queue.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/wordkeep/stats-review-health.jpg',
+      alt: 'Wordkeep Review health panel showing 1,477 reviewable terms, 1,042 ready now, 435 in cooldown, 231 never reviewed, and 177 of a 71-review daily goal completed',
+      caption: 'Review health reads the live queue. At the time of this snapshot, 1,477 terms were reviewable and 231 of them had never been reviewed.',
+      width: 1080,
+      height: 2660,
+    },
+    {
+      src: '/assets/wordkeep/stats-projection.jpg',
+      alt: 'Wordkeep projection table comparing review paces with queue turnover and backlog, followed by Learned and Slipping summaries',
+      caption: 'The projection table turns a daily pace into a queue forecast. Learned and Slipping use the natural encounter trail, not the review record.',
+      width: 1080,
+      height: 2030,
+    },
+  ]}
+/>
+
+## An installable mobile workflow
+
+Wordkeep is a PWA. On Android, the Web Share Target accepts JPEG, PNG, and WebP
+images, so a screenshot can be sent from another app straight into the capture
+flow. The installed app keeps Sessions, Inbox, Terms, Review, and Stats one tap
+apart.
+
+The service worker caches only the static application shell. API responses and
+capture media are never cached, so the app can open offline without pretending
+that private content is available offline. The Appearance dialog switches
+between seven skins, Studio, Terminal, Album, Garden, Editorial, Cinema, and
+Midnight, each in light and dark, and stores the choice on the device. Inside
+the app, pressing / focuses term search and ? opens the shortcut help.
+
+<ProjectImageGrid
+  layout="portrait"
+  images={[
+    {
+      src: '/assets/wordkeep/sessions.jpg',
+      alt: 'Wordkeep mobile Sessions screen listing Order Room Service with 79 captures and a second session, with bottom navigation for Sessions, Inbox, Terms, Review, and Stats',
+      caption: 'Sessions, Inbox, Terms, Review, and Stats stay one tap apart in the installed app.',
+      width: 1080,
+      height: 2408,
     },
   ]}
 />
 
 ## Architecture and privacy
 
-The frontend is a React and TypeScript application built with Vite, Tailwind
-CSS, and an installable PWA shell. A Bun-hosted Hono API manages sessions,
-captures, terms, encounters, reviews, statistics, and exports. PostgreSQL and
-Drizzle ORM store the archive's structured data, while capture images remain
-in private Cloudflare R2 storage and are served through short-lived URLs.
+Wordkeep is a Bun workspace with two applications. The frontend is React 19
+with Vite, Tailwind CSS v4, TanStack Query, React Router, and Radix-based
+interface components. The API is Hono on Bun.
 
-Wordkeep uses server-side session authentication for its single owner. The
-service worker caches the static application shell, not private API responses
-or capture media. This separation keeps the archive usable as an installed app
-without making personal content public or claiming it is available offline.
+PostgreSQL and Drizzle ORM store Sessions, captures, terms, encounters,
+reviews, preferences, and push subscriptions. RustFS provides private
+S3-compatible object storage. Sharp produces bounded display images, Tesseract
+runs on the API host for OCR, and web-push delivers review cards. Capture media
+is served through short-lived presigned URLs rather than a public bucket.
+
+Authentication is a server-side session for the single owner, with an Argon2id
+password hash. The frontend is deployed on Cloudflare Pages, and a Pages
+Function proxies /api to the API on a VPS with a shared secret and the trusted
+client address. The proxy keeps the API same-origin for the browser, so session
+cookies work without exposing the API host as a separate origin.
+
+The archive is private by construction: one owner, no public profiles, no
+third-party analytics, and no public media bucket. The service worker never
+caches API responses or capture images, and normal API responses omit object
+keys and content hashes. The owner-only export is the deliberate exception.
+Tests cover the API with Bun's test runner and the web application with Vitest,
+including HTTP, integration, and component suites.
+
+## Trying Wordkeep
+
+Wordkeep is not a public sign-up product. The archive is designed for one owner
+at a time. If you would like to try it, email
+[adenafilfirmansah@gmail.com](mailto:adenafilfirmansah@gmail.com?subject=Wordkeep%20free%20trial)
+with a short note about what you read or watch, and I can set up a free trial
+and send you the details.

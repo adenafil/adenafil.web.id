@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# original source screenshots kept locally, not shipped or committed
+src/assets/wordkeep/raw/
+
 # macOS-specific files
 .DS_Store
 

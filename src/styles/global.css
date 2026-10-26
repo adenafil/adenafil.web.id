@@ -304,6 +304,10 @@
 		gap: 2rem;
 	}
 
+	.project-image-grid-portrait.project-image-grid-single {
+		grid-template-columns: minmax(0, 24rem);
+	}
+
 	.project-image-grid-portrait .project-figure {
 		width: 100%;
 	}
