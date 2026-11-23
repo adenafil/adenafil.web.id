@@ -1,19 +1,27 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-	src: string;
+	src: ImageMetadata;
 	alt: string;
 	caption?: string;
-	width: number;
-	height: number;
 	priority?: boolean;
 }
 
-const { src, alt, caption, width, height, priority = false } = Astro.props;
+const { src, alt, caption, priority = false } = Astro.props;
 ---
 
 <figure class="project-figure">
-	<a class="project-image-link" href={src} target="_blank" rel="noreferrer" aria-label={`${alt} — open full-size image`}>
-		<img src={src} alt={alt} width={width} height={height} loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />
+	<a class="project-image-link" href={src.src} target="_blank" rel="noreferrer" aria-label={`${alt} — open full-size image in a new tab`}>
+		<Image
+			src={src}
+			alt={alt}
+			widths={[480, 704, 960, 1280]}
+			sizes="(min-width: 44rem) 44rem, calc(100vw - 2.5rem)"
+			format="webp"
+			priority={priority}
+		/>
 	</a>
 	{caption && <figcaption>{caption}</figcaption>}
 </figure>

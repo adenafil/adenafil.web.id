@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
@@ -8,6 +8,17 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
 	site: 'https://adenafil.web.id',
 	trailingSlash: 'ignore',
+	fonts: [
+		{
+			provider: fontProviders.google(),
+			name: 'Ubuntu',
+			cssVariable: '--font-ubuntu',
+			weights: [400, 500, 700],
+			styles: ['normal'],
+			subsets: ['latin'],
+			fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+		},
+	],
 	integrations: [
 		mdx(),
 		sitemap({

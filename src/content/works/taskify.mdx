@@ -20,12 +20,16 @@ links:
       url: https://github.com/adenafil/todolist-nuxt-ui
     - label: API source
       url: https://github.com/adenafil/taskify-api-laravel
-cover: /assets/taskify/cover.webp
+cover: ../../assets/works/taskify/cover.webp
 coverAlt: Taskify screens showing the landing page, task dashboard, registration, login, password recovery, and profile settings
 coverCaption: Task management, account access, and profile security across the Taskify interface.
-coverWidth: 1671
-coverHeight: 941
 ---
+
+import shot1 from '../../assets/works/taskify/1.jpeg';
+import shot2 from '../../assets/works/taskify/4.jpeg';
+import shot3 from '../../assets/works/taskify/6.jpeg';
+import shot4 from '../../assets/works/taskify/5.jpeg';
+import shot5 from '../../assets/works/taskify/3.jpeg';
 
 ## About the project
 
@@ -59,11 +63,9 @@ reminders, and tracking progress. From there, users can create an account or
 sign in to reach the dashboard.
 
 <ProjectImage
-  src="/assets/taskify/1.jpeg"
+  src={shot1}
   alt="Taskify landing page introducing task organization, reminders, progress tracking, account creation, and login"
   caption="The landing page gives new and returning users direct paths into the task management workflow."
-  width={1600}
-  height={821}
 />
 
 Taskify supports email and password registration as well as Google and GitHub
@@ -74,18 +76,14 @@ authentication callbacks.
 <ProjectImageGrid
   images={[
     {
-      src: '/assets/taskify/4.jpeg',
+      src: shot2,
       alt: 'Taskify account registration form with email, password, Google, and GitHub options',
       caption: 'New users can register with credentials or continue through a supported social provider.',
-      width: 1600,
-      height: 823,
     },
     {
-      src: '/assets/taskify/6.jpeg',
+      src: shot3,
       alt: 'Taskify login form with email, password, password recovery, Google, and GitHub options',
       caption: 'The login flow keeps password recovery and social sign-in close to the primary form.',
-      width: 1600,
-      height: 819,
     },
   ]}
 />
@@ -95,11 +93,9 @@ the backend. The API validates reset tokens before accepting a new password,
 keeping recovery separate from an active authenticated session.
 
 <ProjectImage
-  src="/assets/taskify/5.jpeg"
+  src={shot4}
   alt="Taskify forgot password form requesting the user's email address"
   caption="Password recovery starts with a focused email form and returns users to the login flow."
-  width={1600}
-  height={829}
 />
 
 ## Profile and account security
@@ -114,11 +110,9 @@ profile updates, and password changes. The security view presents the action,
 device, date, and IP address so users can review recent account access.
 
 <ProjectImage
-  src="/assets/taskify/3.jpeg"
+  src={shot5}
   alt="Taskify profile settings showing account details, recent login activity, security navigation, and account deletion"
   caption="Profile and security settings connect personal details, recent account activity, and destructive account controls."
-  width={1600}
-  height={821}
 />
 
 ## Reminders and notifications

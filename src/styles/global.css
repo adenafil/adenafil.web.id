@@ -1,33 +1,25 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
-
 :root {
-	color-scheme: light;
-	--canvas: #ffffff;
-	--ink: #141414;
-	--body: #2f2f2f;
-	--muted: #666666;
-	--faint: #767676;
-	--line: #e6e6e6;
-	--pill: #f1f1f1;
-	--pill-hover: #e6e6e6;
-	--accent: #8a4937;
-	--code-bg: #f7f7f7;
+	color-scheme: light dark;
+	--canvas: light-dark(#ffffff, #1b1b1b);
+	--ink: light-dark(#141414, #f2f2f2);
+	--body: light-dark(#2f2f2f, #d8d8d8);
+	--muted: light-dark(#666666, #a8a8a8);
+	--faint: light-dark(#767676, #8f8f8f);
+	--line: light-dark(#e6e6e6, #333333);
+	--pill: light-dark(#f1f1f1, #262626);
+	--pill-hover: light-dark(#e6e6e6, #333333);
+	--accent: light-dark(#8a4937, #d99b81);
+	--code-bg: light-dark(#f7f7f7, #232323);
 }
 
-:root[data-theme='dark'] {
+:root:has(> head > meta[name='color-scheme'][content='dark']) {
 	color-scheme: dark;
-	--canvas: #1b1b1b;
-	--ink: #f2f2f2;
-	--body: #d8d8d8;
-	--muted: #a8a8a8;
-	--faint: #8f8f8f;
-	--line: #333333;
-	--pill: #262626;
-	--pill-hover: #333333;
-	--accent: #d99b81;
-	--code-bg: #232323;
+}
+
+:root:has(> head > meta[name='color-scheme'][content='light']) {
+	color-scheme: light;
 }
 
 @layer base {
@@ -48,7 +40,7 @@
 		margin: 0;
 		background: var(--canvas);
 		color: var(--body);
-		font-family: 'Ubuntu', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-family: var(--font-ubuntu);
 		font-size: 16px;
 		line-height: 1.65;
 		-webkit-font-smoothing: antialiased;
@@ -102,11 +94,10 @@
 
 	::selection {
 		background: var(--accent);
-		color: #ffffff;
+		color: var(--canvas);
 	}
 
 	:where(a, button, summary):focus-visible {
-		border-radius: 2px;
 		outline: 2px solid var(--ink);
 		outline-offset: 3px;
 	}
@@ -130,6 +121,19 @@
 		.site-wide {
 			width: calc(100% - 3rem);
 		}
+	}
+
+	/* Hides content visually but keeps it in the accessibility tree. */
+	.visually-hidden:where(:not(:focus-within, :active)) {
+		position: absolute !important;
+		clip-path: inset(50%) !important;
+		overflow: hidden !important;
+		width: 1px !important;
+		height: 1px !important;
+		margin: -1px !important;
+		padding: 0 !important;
+		border: 0 !important;
+		white-space: nowrap !important;
 	}
 
 	.skip-link {
@@ -805,7 +809,6 @@
 
 	.project-contents li {
 		break-inside: avoid;
-		margin-bottom: 0.25rem;
 	}
 
 	.project-contents__item--nested {
@@ -813,6 +816,9 @@
 	}
 
 	.project-contents a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 24px;
 		color: var(--muted);
 	}
 
@@ -1026,5 +1032,11 @@
 
 	* {
 		transition-duration: 0.01ms !important;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
 	}
 }

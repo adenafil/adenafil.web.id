@@ -9,7 +9,7 @@ const profileLinks = profile.links.filter((link) => link.label !== 'Email');
 	<p>For work or collaboration, email <a class="text-link" href={`mailto:${profile.email}`}>{profile.email}</a>.</p>
 	<div class="contact__links">
 		{profileLinks.map((link) => (
-			<a class="text-link" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+			<a class="text-link" href={link.href} target="_blank" rel="noreferrer">{link.label}<span class="visually-hidden"> (opens in new tab)</span></a>
 		))}
 	</div>
 </section>

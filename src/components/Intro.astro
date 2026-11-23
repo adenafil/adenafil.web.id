@@ -1,22 +1,25 @@
 ---
+import { Image } from 'astro:assets';
+import profileImage from '../assets/profile.jpg';
 import { profile } from '../data/portfolio';
 ---
 
 <section class="site-container intro" aria-labelledby="intro-title">
-	<img
+	<Image
 		class="intro__photo"
-		src="/profile.jpg"
+		src={profileImage}
 		alt={`Portrait of ${profile.name}`}
-		width="112"
-		height="112"
-		fetchpriority="high"
+		widths={[88, 112, 176, 224, 336]}
+		sizes="(min-width: 30rem) 7rem, 5.5rem"
+		format="webp"
+		loading="eager"
 	/>
 
 	<div>
 		<h1 id="intro-title" class="intro__name">{profile.name}</h1>
 		<p class="intro__role">{profile.role} · {profile.location}</p>
 		<p class="intro__bio">{profile.intro}</p>
-		<div class="intro__links" aria-label="Profile links">
+		<nav class="intro__links" aria-label="Profile links">
 			{profile.links.map((link) => {
 				const opensNewTab = link.href.startsWith('http') || link.label === 'CV';
 				return (
@@ -27,9 +30,10 @@ import { profile } from '../data/portfolio';
 						rel={opensNewTab ? 'noreferrer' : undefined}
 					>
 						{link.label}
+						{opensNewTab && <span class="visually-hidden"> (opens in new tab)</span>}
 					</a>
 				);
 			})}
-		</div>
+		</nav>
 	</div>
 </section>

@@ -1,26 +1,28 @@
 ---
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
 	project: CollectionEntry<'works'>;
 	headingLevel?: 2 | 3;
+	priority?: boolean;
 }
 
-const { project, headingLevel = 2 } = Astro.props;
-const { cover, coverWidth, coverHeight } = project.data;
+const { project, headingLevel = 2, priority = false } = Astro.props;
+const { cover } = project.data;
 ---
 
 <li class="work-entry">
 	<a class="work-entry__link" href={`/works/${project.id}/`}>
 		{cover ? (
 			<div class="work-entry__cover">
-				<img
+				<Image
 					src={cover}
 					alt=""
-					width={coverWidth ?? 1672}
-					height={coverHeight ?? 941}
-					loading="lazy"
-					decoding="async"
+					widths={[192, 240, 384, 480]}
+					sizes="(min-width: 56rem) 240px, (min-width: 36rem) 192px, calc(100vw - 2.5rem)"
+					format="webp"
+					priority={priority}
 				/>
 			</div>
 		) : (

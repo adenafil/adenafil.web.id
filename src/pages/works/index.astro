@@ -32,7 +32,7 @@ const structuredData = {
 
 <Layout {title} {description} {structuredData}>
 	<Header />
-	<main id="main-content">
+	<main id="main-content" tabindex="-1">
 		<header class="site-container page-header">
 			<h1 class="page-title">Works</h1>
 			<p class="page-lede">Selected software projects, from scheduling systems and e-commerce to internal tools and mobile apps.</p>
@@ -41,7 +41,7 @@ const structuredData = {
 		<section class="site-wide works-section" aria-label="Selected projects">
 			{projects.length > 0 ? (
 				<ol class="works-list">
-					{projects.map((project) => <ProjectListItem project={project} />)}
+					{projects.map((project, index) => <ProjectListItem project={project} priority={index === 0} />)}
 				</ol>
 			) : (
 				<p>Project case studies are being prepared.</p>

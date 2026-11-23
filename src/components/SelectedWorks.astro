@@ -10,7 +10,7 @@ const { projects } = Astro.props;
 ---
 
 <ol class="works-list">
-	{projects.map((project) => <ProjectListItem project={project} headingLevel={3} />)}
+	{projects.map((project, index) => <ProjectListItem project={project} headingLevel={3} priority={index === 0} />)}
 </ol>
 
 <p class="more-link"><a class="text-link" href="/works">All works <span aria-hidden="true">→</span></a></p>

@@ -1,10 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface ProjectImage {
-	src: string;
+	src: ImageMetadata;
 	alt: string;
 	caption?: string;
-	width: number;
-	height: number;
 }
 
 interface Props {
@@ -13,13 +14,28 @@ interface Props {
 }
 
 const { images, layout = 'default' } = Astro.props;
+
+const sizes =
+	layout === 'portrait'
+		? images.length === 1
+			? '(min-width: 48rem) 20rem, min(16rem, calc(100vw - 2.5rem))'
+			: '(min-width: 48rem) 15rem, min(16rem, calc(100vw - 2.5rem))'
+		: images.length === 1
+			? '(min-width: 47.5rem) 44rem, calc(100vw - 2.5rem)'
+			: '(min-width: 48rem) 21.5rem, calc(100vw - 2.5rem)';
 ---
 
 <div class:list={['project-image-grid', { 'project-image-grid-portrait': layout === 'portrait', 'project-image-grid-single': images.length === 1 }]}>
 	{images.map((image) => (
 		<figure class="project-figure">
-			<a class="project-image-link" href={image.src} target="_blank" rel="noreferrer" aria-label={`${image.alt} — open full-size image`}>
-				<img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+			<a class="project-image-link" href={image.src.src} target="_blank" rel="noreferrer" aria-label={`${image.alt} — open full-size image in a new tab`}>
+				<Image
+					src={image.src}
+					alt={image.alt}
+					widths={[480, 704, 960, 1280]}
+					sizes={sizes}
+					format="webp"
+				/>
 			</a>
 			{image.caption && <figcaption>{image.caption}</figcaption>}
 		</figure>

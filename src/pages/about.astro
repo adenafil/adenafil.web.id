@@ -3,6 +3,7 @@ import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { about, education, profile } from '../data/portfolio';
+import profileImage from '../assets/profile.jpg';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 
@@ -17,7 +18,7 @@ const structuredData = {
 		'@type': 'Person',
 		name: profile.name,
 		jobTitle: profile.role,
-		image: 'https://adenafil.web.id/profile.jpg',
+		image: new URL(profileImage.src, 'https://adenafil.web.id').href,
 		homeLocation: {
 			'@type': 'Place',
 			name: profile.location,
@@ -29,7 +30,7 @@ const structuredData = {
 
 <Layout {title} {description} {structuredData}>
 	<Header />
-	<main id="main-content">
+	<main id="main-content" tabindex="-1">
 		<div class="site-container">
 			<header class="page-header">
 				<h1 class="page-title">About</h1>

@@ -10,6 +10,7 @@ import { profile } from '../data/portfolio';
 			return (
 				<a href={link.href} target={opensNewTab ? '_blank' : undefined} rel={opensNewTab ? 'noreferrer' : undefined}>
 					{link.label}
+					{opensNewTab && <span class="visually-hidden"> (opens in new tab)</span>}
 				</a>
 			);
 		})}

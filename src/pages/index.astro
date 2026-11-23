@@ -7,6 +7,7 @@ import Header from '../components/Header.astro';
 import Intro from '../components/Intro.astro';
 import SelectedWorks from '../components/SelectedWorks.astro';
 import Layout from '../layouts/Layout.astro';
+import profileImage from '../assets/profile.jpg';
 import '../styles/global.css';
 
 const projects = (await getCollection('works', ({ data }) => (import.meta.env.PROD ? !data.draft : true))).sort(
@@ -30,7 +31,7 @@ const structuredData = [
 		'@type': 'Person',
 		name: 'Ade Nafil Firmansah',
 		url: 'https://adenafil.web.id/',
-		image: 'https://adenafil.web.id/profile.jpg',
+		image: new URL(profileImage.src, 'https://adenafil.web.id').href,
 		jobTitle: 'Full-Stack Developer',
 		homeLocation: {
 			'@type': 'Place',
@@ -43,7 +44,7 @@ const structuredData = [
 
 <Layout {title} {description} {structuredData}>
 	<Header />
-	<main id="main-content">
+	<main id="main-content" tabindex="-1">
 		<Intro />
 
 		<section class="site-wide section" aria-labelledby="selected-works-title">

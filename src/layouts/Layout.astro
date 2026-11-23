@@ -1,12 +1,14 @@
 ---
+import { Font } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import profileImage from '../assets/profile.jpg';
+
 interface Props {
 	title: string;
 	description: string;
 	lang?: 'en' | 'id';
-	image?: string;
+	image?: ImageMetadata;
 	imageAlt?: string;
-	imageWidth?: number;
-	imageHeight?: number;
 	structuredData?: Record<string, unknown> | Record<string, unknown>[];
 	indexable?: boolean;
 	canonical?: boolean;
@@ -16,16 +18,16 @@ const {
 	title,
 	description,
 	lang = 'en',
-	image = '/profile.jpg',
+	image = profileImage,
 	imageAlt = 'Portrait of Ade Nafil Firmansah',
-	imageWidth = 440,
-	imageHeight = 440,
 	structuredData,
 	indexable = true,
 	canonical = true,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(image, Astro.site);
+const socialImageURL = new URL(image.src, Astro.site);
+const imageWidth = image.width;
+const imageHeight = image.height;
 const twitterCard = imageWidth / imageHeight >= 1.5 ? 'summary_large_image' : 'summary';
 const jsonLd = structuredData
 	? JSON.stringify(structuredData).replaceAll('<', '\\u003c')
@@ -41,6 +43,17 @@ const jsonLd = structuredData
 		<meta name="robots" content={indexable ? 'index, follow' : 'noindex, follow'} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="theme-color" content="#ffffff" />
+		<meta name="color-scheme" content="light dark" />
+		<script is:inline>
+			try {
+				const colorSchemeMeta = document.querySelector('meta[name="color-scheme"]');
+				const storedScheme = localStorage.getItem('color-scheme') ?? localStorage.getItem('theme');
+				if (storedScheme === 'light' || storedScheme === 'dark') colorSchemeMeta.content = storedScheme;
+				const isDark = colorSchemeMeta.content === 'dark'
+					|| (colorSchemeMeta.content === 'light dark' && matchMedia('(prefers-color-scheme: dark)').matches);
+				document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#1b1b1b' : '#ffffff');
+			} catch {}
+		</script>
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Ade Nafil Firmansah" />
 		<meta property="og:locale" content={lang === 'id' ? 'id_ID' : 'en_US'} />
@@ -56,21 +69,12 @@ const jsonLd = structuredData
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImageURL} />
 		<meta name="twitter:image:alt" content={imageAlt} />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
 		{canonical && <link rel="canonical" href={canonicalURL} />}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+		<Font cssVariable="--font-ubuntu" preload={[{ weight: 400, style: 'normal', subset: 'latin' }]} />
 		<title>{title}</title>
 		{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
-		<script is:inline>
-			const savedTheme = localStorage.getItem('theme');
-			const systemTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-			const theme = savedTheme || systemTheme;
-			document.documentElement.dataset.theme = theme;
-			document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#1b1b1b' : '#ffffff');
-		</script>
 	</head>
 	<body>
 		<a class="skip-link" href="#main-content">Skip to content</a>

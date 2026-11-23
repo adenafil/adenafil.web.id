@@ -11,12 +11,12 @@ const isAbout = pathname === '/about';
 	<div class="site-container">
 		<nav class="site-nav" aria-label="Main navigation">
 			<div class="site-nav__brand">
-				<a class="nav-pill nav-pill--brand" href="/" aria-label={`${profile.name}, home`}>{profile.shortName}</a>
+				<a class="nav-pill nav-pill--brand" href="/">{profile.shortName}<span class="visually-hidden"> — {profile.name}, home</span></a>
 				<a class="nav-pill" href="/works" aria-current={isWorks ? 'page' : undefined}>Works</a>
 			</div>
 			<div class="site-nav__links">
 				<a class="nav-pill" href="/about" aria-current={isAbout ? 'page' : undefined}>About</a>
-				<a class="nav-pill" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV</a>
+				<a class="nav-pill" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV<span class="visually-hidden"> (opens in new tab)</span></a>
 				<a class="nav-pill" href={`mailto:${profile.email}`}>Email</a>
 				<ThemeToggle />
 			</div>
