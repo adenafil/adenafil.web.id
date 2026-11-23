@@ -15,6 +15,7 @@ const projects = (await getCollection('works', ({ data }) => (import.meta.env.PR
 );
 const selectedWorks = projects.slice(0, 3);
 
+const site = Astro.site!;
 const title = 'Ade Nafil Firmansah · Full-Stack Developer';
 const description =
 	'Full-stack developer experienced in TypeScript, React, Laravel, NestJS, databases, background processing, testing, and deployment.';
@@ -23,15 +24,15 @@ const structuredData = [
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
 		name: 'Ade Nafil Firmansah',
-		url: 'https://adenafil.web.id/',
+		url: site.href,
 		inLanguage: 'en',
 	},
 	{
 		'@context': 'https://schema.org',
 		'@type': 'Person',
 		name: 'Ade Nafil Firmansah',
-		url: 'https://adenafil.web.id/',
-		image: new URL(profileImage.src, 'https://adenafil.web.id').href,
+		url: site.href,
+		image: new URL(profileImage.src, site).href,
 		jobTitle: 'Full-Stack Developer',
 		homeLocation: {
 			'@type': 'Place',

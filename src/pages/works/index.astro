@@ -10,6 +10,7 @@ const projects = (await getCollection('works', ({ data }) => (import.meta.env.PR
 	(a, b) => a.data.order - b.data.order,
 );
 
+const site = Astro.site!;
 const title = 'Works · Ade Nafil Firmansah';
 const description = 'Selected software projects built by Ade Nafil Firmansah.';
 const structuredData = {
@@ -17,14 +18,14 @@ const structuredData = {
 	'@type': 'CollectionPage',
 	name: title,
 	description,
-	url: 'https://adenafil.web.id/works/',
+	url: new URL('/works/', site).href,
 	mainEntity: {
 		'@type': 'ItemList',
 		itemListElement: projects.map((project, index) => ({
 			'@type': 'ListItem',
 			position: index + 1,
 			name: project.data.title,
-			url: `https://adenafil.web.id/works/${project.id}/`,
+			url: new URL(`/works/${project.id}/`, site).href,
 		})),
 	},
 };

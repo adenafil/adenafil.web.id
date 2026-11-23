@@ -7,18 +7,19 @@ import profileImage from '../assets/profile.jpg';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 
+const site = Astro.site!;
 const title = `About ${profile.name} · Full-Stack Developer`;
 const description = `Learn about ${profile.name}, his software development background, and education.`;
 const structuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'ProfilePage',
 	name: title,
-	url: 'https://adenafil.web.id/about/',
+	url: new URL('/about/', site).href,
 	mainEntity: {
 		'@type': 'Person',
 		name: profile.name,
 		jobTitle: profile.role,
-		image: new URL(profileImage.src, 'https://adenafil.web.id').href,
+		image: new URL(profileImage.src, site).href,
 		homeLocation: {
 			'@type': 'Place',
 			name: profile.location,

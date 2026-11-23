@@ -28,7 +28,8 @@ const description = data.summary;
 const hasLinks = Boolean(data.links.live || data.links.source || data.links.sources?.length);
 const tableOfContents = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 const showContents = tableOfContents.length >= 4;
-const projectURL = `https://adenafil.web.id/works/${project.id}/`;
+const site = Astro.site!;
+const projectURL = new URL(`/works/${project.id}/`, site).href;
 const imageAlt = data.coverAlt;
 const structuredData = [
 	{
@@ -41,11 +42,11 @@ const structuredData = [
 		creator: {
 			'@type': 'Person',
 			name: 'Ade Nafil Firmansah',
-			url: 'https://adenafil.web.id/',
+			url: site.href,
 		},
 		mainEntityOfPage: projectURL,
 		keywords: data.technologies.join(', '),
-		...(data.cover ? { image: new URL(data.cover.src, 'https://adenafil.web.id').href } : {}),
+		...(data.cover ? { image: new URL(data.cover.src, site).href } : {}),
 		...(data.links.live ? { sameAs: data.links.live } : {}),
 	},
 	{
@@ -56,13 +57,13 @@ const structuredData = [
 				'@type': 'ListItem',
 				position: 1,
 				name: 'Home',
-				item: 'https://adenafil.web.id/',
+				item: site.href,
 			},
 			{
 				'@type': 'ListItem',
 				position: 2,
 				name: 'Works',
-				item: 'https://adenafil.web.id/works/',
+				item: new URL('/works/', site).href,
 			},
 			{
 				'@type': 'ListItem',

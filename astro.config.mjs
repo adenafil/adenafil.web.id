@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://adenafil.web.id',
+	site: 'https://adenafilfirmansah.my.id',
 	trailingSlash: 'ignore',
 	fonts: [
 		{
