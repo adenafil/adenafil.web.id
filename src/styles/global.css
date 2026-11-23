@@ -189,16 +189,11 @@
 		margin-left: auto;
 	}
 
-	.nav-theme {
-		display: contents;
-	}
-
-	.nav-theme > * {
+	.site-nav__actions {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
 		order: 2;
-	}
-
-	.nav-theme__label {
-		display: none;
 	}
 
 	.nav-toggle {
@@ -318,11 +313,14 @@
 
 		html[data-js] .nav-toggle {
 			display: inline-grid;
+		}
+
+		html[data-js] .site-nav__actions {
 			margin-left: auto;
 		}
 
 		html[data-js] .site-nav__brand,
-		html[data-js] .nav-toggle {
+		html[data-js] .site-nav__actions {
 			position: relative;
 			z-index: 45;
 		}
@@ -402,28 +400,6 @@
 			border-radius: 999px;
 			background: currentColor;
 			content: '';
-		}
-
-		html[data-js] .nav-theme {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 1rem;
-			min-height: 3.25rem;
-			border-bottom: 1px solid var(--line);
-			padding-block: 0.5rem;
-		}
-
-		html[data-js] .nav-theme__label {
-			display: block;
-			color: var(--ink);
-			font-size: 1.0625rem;
-		}
-
-		html[data-js] .nav-theme .theme-toggle {
-			width: 2.5rem;
-			height: 2.5rem;
-			background: var(--pill);
 		}
 	}
 

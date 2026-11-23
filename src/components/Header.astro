@@ -13,31 +13,30 @@ const isAbout = pathname === '/about';
 			<div class="site-nav__brand">
 				<a class="nav-pill nav-pill--brand" href="/">{profile.shortName}<span class="visually-hidden"> — {profile.name}, home</span></a>
 			</div>
-			<button
-				class="nav-toggle"
-				type="button"
-				aria-expanded="false"
-				aria-controls="site-menu"
-				aria-label="Menu"
-				data-nav-toggle
-			>
-				<span class="nav-toggle__icon" aria-hidden="true">
-					<span></span>
-					<span></span>
-					<span></span>
-				</span>
-			</button>
 			<div class="site-nav__links" id="site-menu" data-nav-menu data-open="false">
 				<div class="site-nav__sheet">
 					<a class="nav-pill" href="/works" aria-current={isWorks ? 'page' : undefined}>Works</a>
 					<a class="nav-pill" href="/about" aria-current={isAbout ? 'page' : undefined}>About</a>
 					<a class="nav-pill" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV<span class="visually-hidden"> (opens in new tab)</span></a>
 					<a class="nav-pill" href={`mailto:${profile.email}`}>Email</a>
-					<div class="nav-theme">
-						<span class="nav-theme__label">Theme</span>
-						<ThemeToggle />
-					</div>
 				</div>
+			</div>
+			<div class="site-nav__actions">
+				<ThemeToggle />
+				<button
+					class="nav-toggle"
+					type="button"
+					aria-expanded="false"
+					aria-controls="site-menu"
+					aria-label="Menu"
+					data-nav-toggle
+				>
+					<span class="nav-toggle__icon" aria-hidden="true">
+						<span></span>
+						<span></span>
+						<span></span>
+					</span>
+				</button>
 			</div>
 		</nav>
 	</div>
@@ -50,6 +49,7 @@ const isAbout = pathname === '/about';
 		const toggle = nav.querySelector<HTMLButtonElement>('[data-nav-toggle]');
 		const menu = nav.querySelector<HTMLElement>('[data-nav-menu]');
 		const brand = nav.querySelector<HTMLAnchorElement>('.nav-pill--brand');
+		const themeToggle = nav.querySelector<HTMLButtonElement>('[data-theme-toggle]');
 		const mobile = matchMedia('(max-width: 40rem)');
 		let open = false;
 
@@ -87,7 +87,7 @@ const isAbout = pathname === '/about';
 
 			if (event.key !== 'Tab') return;
 
-			const items = [brand, toggle, ...menuLinks()].filter(
+			const items = [brand, ...menuLinks(), themeToggle, toggle].filter(
 				(item): item is HTMLElement => item !== null,
 			);
 			const first = items[0];
