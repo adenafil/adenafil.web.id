@@ -9,17 +9,102 @@ const isAbout = pathname === '/about';
 
 <header class="site-header">
 	<div class="site-container">
-		<nav class="site-nav" aria-label="Main navigation">
+		<nav class="site-nav" aria-label="Main navigation" data-site-nav>
 			<div class="site-nav__brand">
 				<a class="nav-pill nav-pill--brand" href="/">{profile.shortName}<span class="visually-hidden"> — {profile.name}, home</span></a>
-				<a class="nav-pill" href="/works" aria-current={isWorks ? 'page' : undefined}>Works</a>
 			</div>
-			<div class="site-nav__links">
-				<a class="nav-pill" href="/about" aria-current={isAbout ? 'page' : undefined}>About</a>
-				<a class="nav-pill" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV<span class="visually-hidden"> (opens in new tab)</span></a>
-				<a class="nav-pill" href={`mailto:${profile.email}`}>Email</a>
-				<ThemeToggle />
+			<button
+				class="nav-toggle"
+				type="button"
+				aria-expanded="false"
+				aria-controls="site-menu"
+				aria-label="Menu"
+				data-nav-toggle
+			>
+				<span class="nav-toggle__icon" aria-hidden="true">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+			<div class="site-nav__links" id="site-menu" data-nav-menu data-open="false">
+				<div class="site-nav__sheet">
+					<a class="nav-pill" href="/works" aria-current={isWorks ? 'page' : undefined}>Works</a>
+					<a class="nav-pill" href="/about" aria-current={isAbout ? 'page' : undefined}>About</a>
+					<a class="nav-pill" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV<span class="visually-hidden"> (opens in new tab)</span></a>
+					<a class="nav-pill" href={`mailto:${profile.email}`}>Email</a>
+					<div class="nav-theme">
+						<span class="nav-theme__label">Theme</span>
+						<ThemeToggle />
+					</div>
+				</div>
 			</div>
 		</nav>
 	</div>
 </header>
+
+<script>
+	const nav = document.querySelector<HTMLElement>('[data-site-nav]');
+
+	if (nav) {
+		const toggle = nav.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+		const menu = nav.querySelector<HTMLElement>('[data-nav-menu]');
+		const brand = nav.querySelector<HTMLAnchorElement>('.nav-pill--brand');
+		const mobile = matchMedia('(max-width: 40rem)');
+		let open = false;
+
+		const menuLinks = () => Array.from(menu?.querySelectorAll<HTMLElement>('a[href], button') ?? []);
+
+		const setOpen = (next: boolean, restoreFocus = false) => {
+			if (!toggle || !menu || next === open) return;
+
+			open = next;
+			toggle.setAttribute('aria-expanded', String(next));
+			menu.dataset.open = String(next);
+			document.documentElement.classList.toggle('nav-open', next);
+
+			if (next) {
+				menuLinks()[0]?.focus();
+			} else if (restoreFocus) {
+				toggle.focus();
+			}
+		};
+
+		toggle?.addEventListener('click', () => setOpen(!open));
+
+		menu?.querySelectorAll('a').forEach((link) => {
+			link.addEventListener('click', () => setOpen(false, true));
+		});
+
+		document.addEventListener('keydown', (event) => {
+			if (!open || !toggle || !menu) return;
+
+			if (event.key === 'Escape') {
+				event.preventDefault();
+				setOpen(false, true);
+				return;
+			}
+
+			if (event.key !== 'Tab') return;
+
+			const items = [brand, toggle, ...menuLinks()].filter(
+				(item): item is HTMLElement => item !== null,
+			);
+			const first = items[0];
+			const last = items[items.length - 1];
+			if (!first || !last) return;
+
+			if (event.shiftKey && document.activeElement === first) {
+				event.preventDefault();
+				last.focus();
+			} else if (!event.shiftKey && document.activeElement === last) {
+				event.preventDefault();
+				first.focus();
+			}
+		});
+
+		mobile.addEventListener('change', (event) => {
+			if (!event.matches) setOpen(false);
+		});
+	}
+</script>

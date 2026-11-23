@@ -45,6 +45,8 @@ const jsonLd = structuredData
 		<meta name="theme-color" content="#ffffff" />
 		<meta name="color-scheme" content="light dark" />
 		<script is:inline>
+			document.documentElement.dataset.js = 'true';
+
 			try {
 				const colorSchemeMeta = document.querySelector('meta[name="color-scheme"]');
 				const storedScheme = localStorage.getItem('color-scheme') ?? localStorage.getItem('theme');
