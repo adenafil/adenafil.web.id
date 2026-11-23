@@ -1,5 +1,6 @@
 ---
-import Footer from '../components/Footer';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { about, education, profile } from '../data/portfolio';
 import Layout from '../layouts/Layout.astro';
@@ -27,35 +28,32 @@ const structuredData = {
 ---
 
 <Layout {title} {description} {structuredData}>
-	<div id="top"></div>
 	<Header />
-	<main id="main-content" class="site-container min-h-[calc(100dvh-4rem)]">
-		<section class="pt-14 pb-20 md:pt-20 md:pb-28" aria-labelledby="about-title">
-			<h1 id="about-title" class="text-2xl leading-8 font-bold tracking-[-0.02em] md:text-[1.75rem] md:leading-9">About me</h1>
-			<div class="mt-3  space-y-4 text-[0.9375rem] leading-6 text-[var(--muted)]">
+	<main id="main-content">
+		<div class="site-container">
+			<header class="page-header">
+				<h1 class="page-title">About</h1>
+			</header>
+
+			<div class="about-copy">
 				<p>{about.intro}</p>
 				<p>{about.detail}</p>
 			</div>
-		</section>
 
-		<section class="border-t border-[var(--line)] py-20 md:py-28" aria-labelledby="education-title">
-			<h2 id="education-title" class="mb-12 text-2xl font-bold tracking-[-0.03em] md:mb-14 md:text-[1.7rem]">Education</h2>
-			<div class="space-y-10">
-				{education.map((item) => (
-					<article class="grid grid-cols-[3rem_1fr] gap-x-5 gap-y-5 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto] sm:items-start sm:gap-x-6" aria-label={`${item.degree} at ${item.institution}`}>
-						<img class="size-12 border border-[var(--line)] bg-white object-contain p-1 sm:size-14" src="/uisi.jpg" alt="Universitas Internasional Semen Indonesia logo" width="56" height="56" loading="lazy" />
-						<div>
-							<h3 class="text-lg leading-7 font-bold tracking-[-0.02em] md:text-xl">{item.degree}</h3>
-							<p class="mt-1 text-sm leading-6 text-[var(--muted)] md:text-base">{item.institution}</p>
-						</div>
-						<div class="col-start-2 flex flex-wrap gap-x-3 gap-y-1 text-sm font-semibold text-[var(--ink)] sm:col-start-3 sm:block sm:text-right">
-							<time class="block tabular-nums">{item.period}</time>
-							<p class="text-[var(--muted)] sm:mt-1">{item.gpa}</p>
-						</div>
-					</article>
-				))}
-			</div>
-		</section>
+			<section class="section" aria-labelledby="education-title">
+				<h2 id="education-title" class="section-title">Education</h2>
+				<div>
+					{education.map((item) => (
+						<article class="education-entry">
+							<h3 class="education-entry__degree">{item.degree}</h3>
+							<p class="education-entry__meta">{item.institution} · {item.period} · {item.gpa}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<Contact />
+		</div>
 	</main>
 	<Footer />
 </Layout>

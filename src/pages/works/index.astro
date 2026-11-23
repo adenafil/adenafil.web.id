@@ -1,13 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import Footer from '../../components/Footer';
+import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import ProjectListItem from '../../components/works/ProjectListItem.astro';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 
-const projects = (await getCollection('works', ({ data }) => import.meta.env.PROD ? !data.draft : true))
-	.sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection('works', ({ data }) => (import.meta.env.PROD ? !data.draft : true))).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 
 const title = 'Works · Ade Nafil Firmansah';
 const description = 'Selected software projects built by Ade Nafil Firmansah.';
@@ -30,20 +31,20 @@ const structuredData = {
 ---
 
 <Layout {title} {description} {structuredData}>
-	<div id="top"></div>
-		<Header />
-		<main id="main-content" class="site-container min-h-[calc(100dvh-4rem)]">
-			<header class="pt-14 pb-8 md:pt-20 md:pb-10">
-				<h1 class="text-2xl leading-8 font-bold tracking-[-0.02em] md:text-[1.75rem] md:leading-9">Works</h1>
-			</header>
+	<Header />
+	<main id="main-content">
+		<header class="site-container page-header">
+			<h1 class="page-title">Works</h1>
+			<p class="page-lede">Selected software projects, from scheduling systems and e-commerce to internal tools and mobile apps.</p>
+		</header>
 
-		<section class="pb-20 md:pb-28" aria-label="Selected projects">
+		<section class="site-wide works-section" aria-label="Selected projects">
 			{projects.length > 0 ? (
-				<ol class="project-list m-0 grid list-none grid-cols-1 gap-x-12 p-0 md:grid-cols-2">
+				<ol class="works-list">
 					{projects.map((project) => <ProjectListItem project={project} />)}
 				</ol>
 			) : (
-				<p class="border-y border-[var(--line)] py-8 text-[var(--muted)]">Project case studies are being prepared.</p>
+				<p>Project case studies are being prepared.</p>
 			)}
 		</section>
 	</main>

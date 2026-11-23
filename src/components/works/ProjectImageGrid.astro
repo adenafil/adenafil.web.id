@@ -19,7 +19,7 @@ const { images, layout = 'default' } = Astro.props;
 	{images.map((image) => (
 		<figure class="project-figure">
 			<a class="project-image-link" href={image.src} target="_blank" rel="noreferrer" aria-label={`${image.alt} — open full-size image`}>
-				<img class="h-auto w-full" src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+				<img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
 			</a>
 			{image.caption && <figcaption>{image.caption}</figcaption>}
 		</figure>

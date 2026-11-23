@@ -1,18 +1,25 @@
 ---
 import { profile } from '../data/portfolio';
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from './ThemeToggle.astro';
 
-const isAbout = Astro.url.pathname === '/about' || Astro.url.pathname === '/about/';
-const isWorks = Astro.url.pathname === '/works' || Astro.url.pathname.startsWith('/works/');
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isWorks = pathname === '/works' || pathname.startsWith('/works/');
+const isAbout = pathname === '/about';
 ---
 
-<header class="sticky top-0 z-10 bg-[var(--header)] backdrop-blur-[14px]">
-	<div class="site-container flex h-16 items-center justify-between md:h-[72px]">
-		<a class="text-xl font-bold tracking-[-0.04em] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]" href="/" aria-label={`${profile.name}, home`}>{profile.shortName}</a>
-		<nav class="flex items-center gap-4 sm:gap-[18px] md:gap-6" aria-label="Main navigation">
-			<a class:list={["text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]", isWorks ? "text-[var(--ink)]" : "text-[var(--muted)] hover:text-[var(--ink)]"]} href="/works" aria-current={isWorks ? 'page' : undefined}>Works</a>
-			<a class:list={["text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]", isAbout ? "text-[var(--ink)]" : "text-[var(--muted)] hover:text-[var(--ink)]"]} href="/about" aria-current={isAbout ? 'page' : undefined}>About</a>
-			<ThemeToggle client:load />
+<header class="site-header">
+	<div class="site-container">
+		<nav class="site-nav" aria-label="Main navigation">
+			<div class="site-nav__brand">
+				<a class="nav-pill nav-pill--brand" href="/" aria-label={`${profile.name}, home`}>{profile.shortName}</a>
+				<a class="nav-pill" href="/works" aria-current={isWorks ? 'page' : undefined}>Works</a>
+			</div>
+			<div class="site-nav__links">
+				<a class="nav-pill" href="/about" aria-current={isAbout ? 'page' : undefined}>About</a>
+				<a class="nav-pill" href="/assets/firmansah.pdf" target="_blank" rel="noreferrer">CV</a>
+				<a class="nav-pill" href={`mailto:${profile.email}`}>Email</a>
+				<ThemeToggle />
+			</div>
 		</nav>
 	</div>
 </header>

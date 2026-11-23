@@ -1,10 +1,18 @@
 ---
-import Experience from '../components/Experience';
-import Footer from '../components/Footer';
+import { getCollection } from 'astro:content';
+import Contact from '../components/Contact.astro';
+import Experience from '../components/Experience.astro';
+import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import Hero from '../components/Hero';
+import Intro from '../components/Intro.astro';
+import SelectedWorks from '../components/SelectedWorks.astro';
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
+
+const projects = (await getCollection('works', ({ data }) => (import.meta.env.PROD ? !data.draft : true))).sort(
+	(a, b) => a.data.order - b.data.order,
+);
+const selectedWorks = projects.slice(0, 4);
 
 const title = 'Ade Nafil Firmansah · Full-Stack Developer';
 const description =
@@ -34,11 +42,17 @@ const structuredData = [
 ---
 
 <Layout {title} {description} {structuredData}>
-	<div id="top"></div>
 	<Header />
 	<main id="main-content">
-		<Hero />
+		<Intro />
+
+		<section class="site-wide section" aria-labelledby="selected-works-title">
+			<h2 id="selected-works-title" class="section-title">Selected Works</h2>
+			<SelectedWorks projects={selectedWorks} />
+		</section>
+
 		<Experience />
+		<Contact />
 	</main>
 	<Footer />
 </Layout>

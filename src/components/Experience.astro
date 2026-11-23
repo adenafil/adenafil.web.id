@@ -1,0 +1,27 @@
+---
+import { experiences } from '../data/portfolio';
+---
+
+<section class="site-container section" id="experience" aria-labelledby="experience-title">
+	<h2 id="experience-title" class="section-title">Work Experience</h2>
+
+	<div class="experience-list">
+		{experiences.map((experience) => (
+			<article class="experience-entry">
+				<div class="experience-entry__head">
+					<div>
+						<h3 class="experience-entry__company">{experience.company}</h3>
+						<p class="experience-entry__role">{experience.role} · {experience.engagement}</p>
+					</div>
+					<time class="experience-entry__period">{experience.period}</time>
+				</div>
+
+				<ul class="experience-entry__details">
+					{experience.details.map((detail) => <li>{detail}</li>)}
+				</ul>
+
+				<p class="experience-entry__stack"><strong>Stack:</strong> {experience.technologies.join(', ')}</p>
+			</article>
+		))}
+	</div>
+</section>

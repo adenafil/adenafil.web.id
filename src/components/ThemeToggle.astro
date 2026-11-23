@@ -1,0 +1,30 @@
+---
+---
+
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" title="Switch color theme">
+	<svg class="size-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+		<circle cx="12" cy="12" r="9"></circle>
+		<path d="M12 3a9 9 0 0 0 0 18V3Z" fill="currentColor" stroke="none"></path>
+	</svg>
+</button>
+
+<script>
+	const themeToggle = document.querySelector('[data-theme-toggle]');
+
+	const syncThemeUI = () => {
+		const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+		const label = `Switch to ${nextTheme} theme`;
+		themeToggle?.setAttribute('aria-label', label);
+		themeToggle?.setAttribute('title', label);
+	};
+
+	themeToggle?.addEventListener('click', () => {
+		const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+		document.documentElement.dataset.theme = nextTheme;
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', nextTheme === 'dark' ? '#1b1b1b' : '#ffffff');
+		localStorage.setItem('theme', nextTheme);
+		syncThemeUI();
+	});
+
+	syncThemeUI();
+</script>
